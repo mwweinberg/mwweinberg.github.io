@@ -1,0 +1,1 @@
+Control the appearance of the home page wiht index.html
