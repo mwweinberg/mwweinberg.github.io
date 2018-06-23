@@ -25,9 +25,6 @@ owner:
   # google plus id, include the '+', eg +mmistakes
   google_plus:
 
-plugins:
-    - jekyll-redirect-from
-
 # Background image to be tiled on all pages
 background:
 
