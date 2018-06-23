@@ -6,7 +6,7 @@ tags:
 - projects
 tumblr_url: http://michaelweinberg.org/post/79810686960/capacitive-lightswitch-touch-a-picture-turn-on-a
 ---
-<p><img alt="image" src="https://78.media.tumblr.com/c2a3d0c1dfdfeb7527c2fd934aa816a8/tumblr_inline_n2jvfbDeSx1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html0.jpg"/></p>
 <p>This is my first &ldquo;real&rdquo; (non-blink an LED) arduino project.  The problem: our bar blocks the lightswitch for the light over the living room table.  The solution: control the light by touching a picture around the corner.  Touch the picture once to turn the light on and touch it again to turn the light off.</p>
 <p>Supplies:</p>
 <p>1 Arduino (I used Adafruit&rsquo;s <a href="https://www.adafruit.com/products/1315" target="_blank">Adruino Micro without headers</a>): $22.95</p>
@@ -22,35 +22,35 @@ tumblr_url: http://michaelweinberg.org/post/79810686960/capacitive-lightswitch-t
 
 <p>This thing ended up working in a fairly strightforward manner.  The picture itself is a capacitor and touching it changes its electrical resistance.  The arduino is monitoring the picture and when the resistance changes in a way that it is looking for, the arduino triggers the relay.  That relay is attached to the light so on is on and off is off.  The hardest part is setting the trigger threshold.</p>
 <p>Here is a crappy and probably incorrect sketch of the circuit:</p>
-<p><img alt="image" src="https://78.media.tumblr.com/15b4f68f423c4758efafbe4b253c8c36/tumblr_inline_n2jvig5Z5U1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html1.jpg"/></p>
 
 <p>B is the breadboard, A is the arduino, and R is the relay.  That word in the upper left is &ldquo;sensor&rdquo; because that wire goes towards the picture.  The dotted line on the breadboard shows that those two points are connected, and the zig zag line is the resistor.</p>
 <p>(Edit 1/15: here&rsquo;s a better picture using fritzing)</p>
-<p><img alt="image" src="https://78.media.tumblr.com/331ad5eedf0b3fafd1dd0263c93f3701/tumblr_inline_ni53qsZK7C1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html2.jpg"/></p>
 
 <p>The first step is probably to paint your picture with the paint.  As far as I know the picture can pretty much be whatever you want. The only thing to be aware of is how you are going to connect it to the arduino.  The bare conductive tutorial that existed when I started this project (but that is now gone) suggested using the paint to &ldquo;glue&rdquo; a magnet to the wall.  I did that</p>
-<p><img alt="image" src="https://78.media.tumblr.com/f3350cc9500d3060a52bc522b50fa83f/tumblr_inline_n2jvq8w7H81rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html3.jpg"/></p>
 
 <p>There is no reason that the connection point is far away from the main picture.  The wire is purely aesthetic - it keeps everything behind the bar and around the corner.  Once you have the magnet on the wall you can connect it to the arduino by soldering a washer to the end of a wire.</p>
 <p>The next step is to build the circuit.  The circuit is made up of three elements: the arduino, the relay, and the breadboard.</p>
 <p>The breadboard is not very complicated.  In fact, I probably could have just soldered all of the parts together to let them dangle in space.  But breadboards are cheap and I wanted this to look somewhat clean, so I decided to go for it.  Since this is a small circuit, I just cut the breadboard into smaller pieces.</p>
 
-<p><img alt="image" src="https://78.media.tumblr.com/05287931dde02bd31bfaf978194e93d4/tumblr_inline_n2jvxv6pOz1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html4.jpg"/></p>
 <p>I then connected the wires and the resistor. Remember that everything in the same number row is connected electrically.</p>
-<p><img alt="image" src="https://78.media.tumblr.com/c08c09625fb169f9b74bd2a6c911df04/tumblr_inline_n2jvzrOJES1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html5.jpg"/></p>
 <p><strike>I used a 330K resistor.  The advantage of a 330K resistor (compared to, say, a 10K resistor) is that it increases the spread between the value returned by the picture when no one is touching it and when someone is touching it</strike>. (Edit 1/15: after having some problems with this - mostly the lights flashing on and of and/or the switch not responding to a touch - I went back and reread the <a href="http://playground.arduino.cc/Main/CapacitiveSensor?from=Main.CapSense" target="_blank">capacitive sensor arduino library documentation</a>.  I was using a resistor that was way to small.  The documentation recommends at least 1 megaohm for touch and larger ones for proximity.  Hopefully changing this will address some of my problems). This spread becomes important when you are setting the threshold.  We&rsquo;ll get to that in due time.</p>
 <p>Once the breadboard is done it is time to connect it to the arduino.  I got a headerless arduino because I wanted to be able to solder the connections and I got the micro arduino because I wanted the final assembly to be as small as possible.  Connect the wires to the proper pins (2 and 4 if you are using my sketch).</p>
-<p><img alt="image" src="https://78.media.tumblr.com/fb852e49e4e07906b559f3c696dcbdc3/tumblr_inline_n2jw68kCb51rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html6.jpg"/></p>
 <p>Next you need to connect the arduino to a relay. But what is a relay and why do you need it?  In a perfect/easy world, you could just use the ardino to power the light.  Activating a pin would send enough electricity towards the light to turn it on. In our imperfect/hard world, arduinos work at fairly low voltage while overhead lighting works at a fairly high voltage (the upside of this is that it is hard to kill yourself with the power coming out of the arduino).  A relay is essentially a high-voltage-controlling switch that is controlled by a low-voltage trigger.  When the relay gets the signal from the arduino it activates the high power switch controlling the lights. While these two switches are connected insomuch as the low voltage can control the high voltage, they are separate so the high voltage does not destroy the arduino.</p>
 <p>You need to connect three wires from the arduino to the relay: 5v, ground, and control  The 5V and ground map directly from the arduino pins to the relay port.  The control pin is pin 13, which also controls the onboard LED.  The default state for the relay is off so when the on board LED is off (and pin 13 is off) the relay will be open and when the on board LED is on (and pin 13 is live) the relay will be closed.</p>
-<p><img alt="image" src="https://78.media.tumblr.com/326b26a166d4479332713e1dc1658f7d/tumblr_inline_n2jwgyEerA1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html7.jpg"/></p>
 <p>The next wire to connect is the one that goes from the breadboard to the picture (in the upper left).  Solder it inline with the wire connected to the 2 pin.</p>
-<p><img alt="image" src="https://78.media.tumblr.com/155705a58a22f066e294248ddfae3fb1/tumblr_inline_n2jwj6JYXd1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html8.jpg"/></p>
 <p>You can now install the circuit.  I decided to replace the lightswitch with the relay.  The good thing about this was that it put the relay close to the power controlling the light.  The bad thing was that it exposed the relay connections to the ground that remained in the lightswitch port in the wall.  In order to prevent accidental shorts I wrapped the relay in rubber bands and electrical tape.  You can also see that the main wire is screwed into the relay (don&rsquo;t forget to turn off power going to the light while you do this!).</p>
-<p><img alt="image" src="https://78.media.tumblr.com/0efecef67271c6acc6d6023983e12b66/tumblr_inline_n2jwogtt8E1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html9.jpg"/></p>
 
 <p>Now connect the arduino to power with the USB cable and power supply. </p>
-<p><img alt="image" src="https://78.media.tumblr.com/f3350cc9500d3060a52bc522b50fa83f/tumblr_inline_n2jwqgl21Q1rl4bdh.jpg"/></p>
+<p><img alt="image" src="/images/2014-03-16-capacitive-lightswitch-touch-a-picture-turn-on-a.html10.jpg"/></p>
 <p>With that done it is time to program the arduino.  Make sure you have the <a href="http://playground.arduino.cc/Main/CapacitiveSensor?from=Main.CapSense#.UyYr6ZjfE6I" target="_blank">capsense library</a> installed.</p>
 <p>Here is the sketch I used:</p>
 <blockquote>
