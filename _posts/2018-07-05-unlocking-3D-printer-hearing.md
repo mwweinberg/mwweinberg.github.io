@@ -1,5 +1,6 @@
 ---
 layout: post
+category: blog
 title: Unlocking 3D Printer Hearing at the US Copyright Office
 date: 2018-07-05
 tags:
