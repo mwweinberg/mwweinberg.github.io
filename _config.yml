@@ -11,14 +11,14 @@ url:
 owner:
   name:           Michael Weinberg
   avatar:         china_internet_police_good_400x400.jpg
-  bio:            "Lawyer at Shapeways, Board Member at Open Source Hardware Association, maker of poorly made things."
+  bio:            "Executive Director of NYU's Engelberg Center for Innovaiton Law and Policy, Board President of Open Source Hardware Association, maker of poorly made things."
   email:          hello@michaelweinberg.org
   # Social networking links used in footer. Update and remove as you like.
   twitter: MWeinberg2D
   facebook:
   github: MWWeinberg
   stackexchange:
-  linkedin:
+  linkedin: weinbergmichael
   instagram:
   flickr:
   tumblr:
@@ -39,7 +39,7 @@ timezone:    America/New_York
 future:      false  # publish future dated posts --  true, false (default)
 highlighter: rouge
 markdown:    kramdown
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-gist
