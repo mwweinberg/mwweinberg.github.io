@@ -1,1 +1,3 @@
-Control the appearance of the home page wiht index.html
+Control the appearance of the home page with index.html
+
+side stuff on the home page is /_data/navigation.yml

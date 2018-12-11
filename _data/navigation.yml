@@ -3,5 +3,8 @@
 - title: Hardware Projects
   url: /tags/#projects #/theme-setup/
 
+- title: RSS
+  url: /feed.xml
+
 #- title: External Link
 #  url: http://mademistakes.com
