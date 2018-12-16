@@ -1,0 +1,132 @@
+html * {
+    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+
+img {
+  width: 300px;
+  display: block;
+  padding: 25px;
+}
+#canvasContainer {
+  display: inline;
+  padding: 15px;
+
+}
+
+h1 {
+
+}
+
+#sub-body {
+    /* The image used */
+    background-image: url("images/smk-light.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+p {
+    /*font-family: Arial, Helvetica, sans-serif;*/
+}
+
+
+#header{
+    background: rgba(255,255,255,0.5);
+    border-radius: 25px;
+    color: black;
+    padding: 10px, 10px;
+    text-align: center;
+}
+
+#footer{
+    background: rgba(255,255,255,0.5);
+    border-radius: 25px;
+    text-transform: lowercase;
+    font-size: 12px;
+    padding: 5px 10px 5px;
+
+}
+
+.pushButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*
+**********
+Section for fancy button on image stuff
+**********
+*/
+
+/* Container needed to position the button. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 25%;
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn:hover {
+  background-color: black;
+}
+
+/*
+**********
+Section for button alignment/positioning stuff
+**********
+*/
+
+#buttonWrapper {
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+}
+
+#position1 {
+    float: left;
+    /*width: 25%; */
+    overflow: hidden;
+}
+
+#position2 {
+    overflow:hidden;
+}
+
+#position3 {
+    overflow:hidden;
+}
+
+#position4 {
+    overflow:hidden;
+}

@@ -1,0 +1,79 @@
+<!--
+  Original file Copyright (c) 2018 ml5
+  Modifications Copyright (c) 2018 Michael Weinberg
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Style Transfer Demo</title>
+
+  <link href="style.css" type="text/css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.1.1/dist/ml5.min.js" type="text/javascript"></script>
+
+
+</head>
+
+<script src="sketch.js"></script>
+
+<body>
+<div id="header">
+  <h1>SMK Open Selfie</h1>
+  <p id='status'>Recruiting from the SMK collection (it won't take long)...</p>
+</div>
+
+
+<div id ="buttonWrapper">
+
+
+    <div class="container" id="position1">
+      <img src="images/originals/mountainclimber.jpg" alt="Mountain Climber">
+      <button class="btn" id="mountainHtmlButton">The Mountain Climber</button>
+    </div>
+
+    <div class="container" id="position2">
+      <img src="images/originals/fuchuncrop.jpg" alt="Fuchun">
+      <button class="btn" id="fuchunHtmlButton">Dwelling in the Fuchun Mountains</button>
+    </div>
+
+    <div class="container" id="position3">
+      <img src="images/originals/palace.jpg" alt="Palace">
+      <button class="btn" id="palaceHtmlButton">Amailenborg Palace Square</button>
+    </div>
+
+    <div class="container" id="position4">
+      <img src="images/originals/udnie.jpg" alt="Udnie">
+      <button class="btn" id="udnieHtmlButton">Udnie</button>
+    </div>
+
+</div>
+
+<div id="sub-body">
+    <br>
+    <br>
+      <div id="canvasContainer"></div>
+      <br>
+      <br>
+      <br>
+      <br>
+    <div id="footer">
+      <p>Style Source: <a target="_blank" href="https://www.smk.dk/en/highlight/a-mountain-climber-1912/">A  Mountain Climber (1912) - J.F. Willumsen</a></p>
+       <p>Style Source: <a target="_blank" href="https://en.wikipedia.org/wiki/Dwelling_in_the_Fuchun_Mountains">Dwelling in the Fuchun Mountains (1350) - Huang Gongwang</a></p>
+       <p>Style Source: <a target="_blank" href="https://www.smk.dk/en/highlight/amalienborg-palace-square-1896/s">Amailenborg Palace Square (1896) - Vilhelm Hammershoi</a></p>
+        <p>Style Source: <a target="_blank" href="https://en.wikipedia.org/wiki/File:Francis_Picabia,_1913,_Udnie">Udnie (Young American Girl, The Dance) (1913) - Francis Picabia</a></p>
+
+
+      <p> Based on the Yining Shi Coding Train <a href="https://www.youtube.com/watch?v=gye9hSIrRWI">Style Transfer Demo</a> and powered by <a href="https://ml5js.org">ml5.js</a>.</p>
+      <p>SMK image: <a href="https://www.flickr.com/photos/51443772@N06/16036698579/in/photolist-qr7gM6-kemuXp-btjH6j-EFgWV9-83NkJi-btjLCu-83RsfC-bGeA2R-btjNfE-83Rspm-6XMd7-bGez5i-bVz5G7-btjFsQ-bGewFi-82zxLE-82wqpF-btjNBA-83NkSp-btjJmJ-bGew9K-bGezA8-bGevkx-btjQ23-dVuoWD-82xojX-bVz6sQ-GDiu2-dcybu2-82zyhh-82xohk-btjHwu-dcybU1-bGeBQD-bGex5T-btjHWh-btjL4L-82wpzk-btjMSu-P1tj2w-btjM3U-bGeE2v-e4fE71-bGeEZP-dWF7o7-TxFuRG-Snq8ui-TBjg1n-NzFcVc-TxFvvYSMK"> - The National Gallery of Denmark CC-BY 2.0</a></p>
+    </div>
+
+</div>
+
+</body>
+
+</html>
