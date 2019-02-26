@@ -1,3 +1,5 @@
 Control the appearance of the home page with index.html
 
 side stuff on the home page is /_data/navigation.yml
+
+the short 'about' in the side section is in /_config.yml
