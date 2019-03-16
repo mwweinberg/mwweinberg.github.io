@@ -2,7 +2,7 @@
 layout: post
 category: blog
 title: Should Human Rights Concerns Impact Open Source Hardware Events in China?
-date: 2019-03-14
+date: 2019-03-16
 tags:
 - oshwa
 - china
@@ -11,7 +11,7 @@ image:
 
 ---
 
-Today OSHWA [announced](https://www.oshwa.org/?p=4628) that it would not be holding the 2019 Open Hardware Summit in Shenzhen, China. The stated reason for canceling the Summit is that China’s new [foreign NGO law](http://www.chinafile.com/ngo/laws-regulations/law-of-peoples-republic-of-china-administration-of-activities-of-overseas) created logistical and bureaucratic barriers to holding the Summit in China. This reason is absolutely true – OSHWA was not going to be able to overcome the barriers created by the law.
+Earlier this week OSHWA [announced](https://www.oshwa.org/?p=4628) that it would not be holding the 2019 Open Hardware Summit in Shenzhen, China. The stated reason for canceling the Summit is that China’s new [foreign NGO law](http://www.chinafile.com/ngo/laws-regulations/law-of-peoples-republic-of-china-administration-of-activities-of-overseas) created logistical and bureaucratic barriers to holding the Summit in China. This reason is absolutely true – OSHWA was not going to be able to overcome the barriers created by the law.
 
 However, there is also a second reason that I am wary of holding an event in China: China is currently holding one million ethnic Uyghurs in concentration camps, primarily because they are ethnically and religiously different from the Han Chinese majority. While OSHWA did not discuss the Uyghur situation in the Summit announcement, I believe that it is important to flesh out this concern for the community. I also believe that the open community should also consider this situation when it thinks about bringing major events to China.
 
