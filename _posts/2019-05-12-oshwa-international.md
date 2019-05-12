@@ -1,8 +1,8 @@
 ---
 layout: post
 category: blog
-title: Searchable list of certified open hardware projects
-date: 2019-04-14
+title: Open Source Hardware is International
+date: 2019-05-12
 tags:
 - oshwa
 image:
@@ -14,7 +14,7 @@ image:
 
 The Open Source Hardware Association's [Hardware Registry](https://certification.oshwa.org/list.html) lists hardware from 29 different countries on five continents, demonstrating the broad, international footprint of certified open source hardware.
 
-![OSHWA Certification Map](/images/opensourcehardwaremap201905.jpg) 
+![OSHWA Certification Map](/images/opensourcehardwaremap201905.jpg)
 
 In some ways, this international reach shouldn't be a surprise. Like many other open source communities, the open source hardware community is built on top of the internet, not grounded in any specific geographical location. The focus on documentation, sharing, and openness makes it easy for people in different places with different backgrounds to connect and work together to develop new hardware. Even the community-developed open source hardware [definition](https://www.oshwa.org/definition/) has been translated into 11 languages from the original English.
 
