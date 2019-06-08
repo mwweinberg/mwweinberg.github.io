@@ -2,7 +2,7 @@
 layout: post
 category: blog
 title: Open Source Hardware and the Great Outdoors
-date: 2019-05-12
+date: 2019-06-08
 tags:
 - oshwa
 image:
