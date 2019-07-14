@@ -10,6 +10,8 @@ image:
 
 ---
 
+*Update 7/14/19: the chapter itself is now available [here](https://michaelweinberg.org/blog/2019/07/13/economic-and-regulatory-perspectives-on-3D-printing/).*
+
 Occasionally I find myself in the highly fortunate position to be asked to contribute to a scholarly publication without having any professional incentive to do so.  This is exciting because I’m as flattered as anyone when someone else is interested enough in what I'm doing to want to publish it.  It also gives me a chance to come into contact with the kinds of contracts that academic publishers offer their contributors.  To put it mildly, these contracts are insane.  In exchange for an unpaid contribution, the contracts expect the authors to give the publishers all sorts of exclusive rights and to indemnify the authors against any sort of infringement lawsuit.
 
 Fortunately for me, and unlike so many people who are confronted with these types of contracts, I have no professional incentive to publish in academic journals (at least as of now).  That makes me free to push back against the contract terms.  The worst thing that happens is that the publisher decides I’m more trouble than I’m worth - it isn’t going to knock me off tenure track or anything.
