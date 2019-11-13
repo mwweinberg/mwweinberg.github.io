@@ -1,7 +1,7 @@
 ---
 layout: post
 category: blog
-title: Announcing Data Portability and Platform Competition: Is User Data Exported From Facebook Actually Useful to Competitors?
+title: Announcing Data Portability and Platform Competition - Is User Data Exported From Facebook Actually Useful to Competitors?
 date: 2019-11-06
 tags:
 - NYU
