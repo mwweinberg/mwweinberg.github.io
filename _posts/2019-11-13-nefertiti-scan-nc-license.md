@@ -13,7 +13,8 @@ image:
 ---
 
 ![Nefertiti Scan](/images/nefertiti_front.jpg)
-*Image: Philip Pikart CC BY-SA 3.0 Unported*
+
+###### Image: Philip Pikart CC BY-SA 3.0 Unported
 
 Today, after a three year legal battle, artist [Cosmo Wenman](https://cosmowenman.com/) released high quality scans of the [Bust of Nefertiti](https://en.wikipedia.org/wiki/Nefertiti_Bust) currently residing in the [Neues Museum](https://www.smb.museum/en/museums-institutions/neues-museum/home.html) in Berlin.  This is the culmination of an [extraordinary FOIA effort by Cosmo](https://reason.com/2019/11/13/a-german-museum-tried-to-hide-this-stunning-3d-scan-of-an-iconic-egyptian-artifact-today-you-can-see-it-for-the-first-time/) and he is rightly being commended for pushing the files into the public.  You can download the files yourself [here](https://www.thingiverse.com/thing:3974391) and I encourage you to do so.
 
