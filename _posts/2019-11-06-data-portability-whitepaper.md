@@ -5,13 +5,16 @@ title: Announcing Data Portability and Platform Competition - Is User Data Expor
 date: 2019-11-06
 tags:
 - NYU
+- whitepapers
 image:
      feature: DataPortabilityWhitepaperCover.jpg
 
 ---
 *This post [originally appeared](https://www.law.nyu.edu/centers/engelberg/news/2019-11-06-Announcing-Data-Portability-and-Platform-Competition) on the Engelberg Center blog.*
 
-The Engelberg Center on Innovation Law & Policy is pleased to announce the publication of a new whitepaper: *[Data Portability and Platform Competition: Is User Data Exported From Facebook Actually Useful to Competitors?](http://michaelweinberg.org/docs/Data_Portability_and_Platform_Competition_-_Is_User_Data_Exported_From_Facebook_Actually_Useful_to_Competitors.pdf)*.   The paper explores how useful data exported from Facebook might be to a potential competitor.  The answer: not very.
+The Engelberg Center on Innovation Law & Policy is pleased to announce the publication of a new whitepaper: *[Data Portability and Platform Competition: Is User Data Exported From Facebook Actually Useful to Competitors?](/docs/Data_Portability_and_Platform_Competition_-_Is_User_Data_Exported_From_Facebook_Actually_Useful_to_Competitors.pdf)*.   The paper explores how useful data exported from Facebook might be to a potential competitor.  The answer: not very.
+
+![data portability paper cover](/images/DataPortabilityWhitepaperCover.jpg)
 
 The paper, authored by [Gabriel Nicholas](https://www.law.nyu.edu/centers/engelberg/team/nicholas) and [Michael Weinberg](https://www.law.nyu.edu/centers/engelberg/team/weinberg), focuses on a seeming paradox in the current debate around the size and power of platforms such as Facebook, Google, and Amazon.
 
@@ -23,4 +26,4 @@ In order to find out, the authors leveraged the Engelberg Center’s access to N
 
 The paper documents the weaknesses in data portability as a tool for competition in the context of social media sites, and provides lessons for policymakers interested in integrating data portability into a large set of solutions.
 
-You can read the entire paper [here](http://michaelweinberg.org/docs/Data_Portability_and_Platform_Competition_-_Is_User_Data_Exported_From_Facebook_Actually_Useful_to_Competitors.pdf).
+You can read the entire paper [here](/docs/Data_Portability_and_Platform_Competition_-_Is_User_Data_Exported_From_Facebook_Actually_Useful_to_Competitors.pdf).
