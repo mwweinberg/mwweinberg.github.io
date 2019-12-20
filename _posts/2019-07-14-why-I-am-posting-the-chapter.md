@@ -4,9 +4,9 @@ category: blog
 title: Why I am Posting a Free Book Chapter About 3D Printing and Orthopaedic Surgery
 date: 2019-07-14 01:02:02
 tags:
-- Copyright
-- Contracts
-- 3D printing
+- copyright
+- contracts
+- 3dprinting
 image:
 
 ---

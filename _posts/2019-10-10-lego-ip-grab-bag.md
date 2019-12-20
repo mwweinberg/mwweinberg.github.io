@@ -4,9 +4,9 @@ category: blog
 title: Lego's IP Grab Bag
 date: 2019-10-10
 tags:
-- 3d printing
-- Copyright
-- Trademark
+- 3dprinting
+- copyright
+- trademark
 image:
      feature:
 

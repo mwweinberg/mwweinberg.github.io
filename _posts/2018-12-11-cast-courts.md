@@ -4,8 +4,8 @@ category: blog
 title: Cast Courts, 3D Scans, and Mass Dissemination of Museum Collections
 date: 2018-12-11
 tags:
-- Copyright
-- 3Dscanning
+- copyright
+- 3dscanning
 - GLAM
 image:
      feature: trajanscolumn.jpg

@@ -4,8 +4,8 @@ category: blog
 title: Changes that Elsevier Agreed to in Their Academic Publishing Contract
 date: 2018-11-10
 tags:
-- Copyright
-- Contracts
+- copyright
+- contracts
 image:
 
 ---

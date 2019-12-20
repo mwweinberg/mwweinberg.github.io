@@ -4,9 +4,9 @@ category: blog
 title: Book Chapter - Economic and Regulatory Perspectives on Additive Manufacturing
 date: 2019-07-14 01:01:01
 tags:
-- Copyright
-- Contracts
-- 3D printing
+- copyright
+- contracts
+- 3dprinting
 image:
 
 ---
