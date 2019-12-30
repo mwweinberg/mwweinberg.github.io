@@ -4,7 +4,7 @@ category: blog
 title: Creating Map-Based Data Visualizations Is Getting Pretty Easy
 date: 2019-04-07
 tags:
-- Projects
+- projects
 - Python
 image:
      feature: movie_map_dots.png
