@@ -1,7 +1,7 @@
 ---
 layout: post
 category: blog
-title: Easy Public Domain Picture Frame with the Cleveland Museum of Art API
+title: Easy Public Domain Picture Frame with the Cleveland Museum of Art Open Access API
 date: 2020-01-01
 tags:
 - projects
@@ -22,7 +22,7 @@ This is a fairly lightweight project, so all you need to make it happen is:
 
 Most of this post is about the code.  The theory behind this project is that there is a website that regularly pulls a new image from the CMA's API and displays it along with some information like the work's title and creator.  The raspberry pi boots into a fullscreen browser displaying that page.  The screen also needs to automatically turn off at night because it is a waste to keep the monitor on all night when there is no one around to see it.
 
-The entire project is a double celebration of openness. In addition to the works being displayed, the only reason I could even begin to build it is that the open nature of the internet's architecture allows me to peek at better-designed sites to learn from them.
+The entire project is a double celebration of openness. In addition to the works being displayed, the only reason I could even begin to build it is that the open nature of the internet's architecture allows me to peek at better-designed sites to learn from them.  Open educational resources like the [Coding Train](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw) have taught me just enough javascript to be able to put something like this together.
 
 # The Site
 
@@ -63,9 +63,9 @@ var offset = getRndInteger(1, 31278);
 var target_json_url = "https://openaccess-api.clevelandart.org/api/artworks/?limit=10&indent=1&cc0=1&has_image=1&skip=" + offset;
 ```
 
-This block of code is used to access the entry via the CMA's API.  I believe that there are 31,277 entries in the CMA's catalog that have an image. The first line picks a random number between 1 and 31,277.  The second line uses the API's syntax to jump to the work that corresponds to that number.
+This block of code is used to access the entry via the CMA's API.  I believe that there are 31,277 entries in the CMA's open access catalog that have an image. The first line picks a random number between 1 and 31,277.  The second line uses the API's syntax to jump to the work that corresponds to that number.
 
-The `limit=10&indent=1` elements in the URL are probably unnecessary.  The `cc0=1&has_image=1` elements are important - they limit results to ones that have a CC0 license and have an image associated with the entry.  
+The `limit=10&indent=1` elements in the URL are probably unnecessary.  The `cc0=1&has_image=1` elements are important - they limit results to ones that have a CC0 license and have an image associated with the entry.  Those are the open access entries that I care about.
 
 ```javascript
 //create new request object instance
@@ -136,7 +136,7 @@ This first section assigns the contents of the JSON file to a variable and then 
     var picked_image_author = found_image_info[3];
     var picked_image_date = found_image_info[4];
 ```
-This section assigns a variable to each element in the found_image_info array.
+This section assigns a variable to each element in the `found_image_info` array.
 
 ```javascript
     //creates the image to be  posted
@@ -222,17 +222,17 @@ Finally, each element of the data is put into an array and returned out of the f
 
 This is also a fairly strightforward css file.  The `.textStyle` section is what you use to style the text. I also believe that the `.container` section needs to be set to relative in order for the overlay to work.
 
-The most interesting part of the file is probably the `@font-face` section.  That loads the custom font.  The font is the [fantastic font]9https://www.cooperhewitt.org/open-source-at-cooper-hewitt/cooper-hewitt-the-typeface-by-chester-jenkins/) that the Cooper Hewitt made available as part of their open access project a few years ago.  I always like using the font for open access-related projects.  The fonts live in the `/data` folder.  They are applied to all of the text in the `*` section.
+The most interesting part of the file is probably the `@font-face` section.  That loads the custom font.  The font is the [fantastic font](https://www.cooperhewitt.org/open-source-at-cooper-hewitt/cooper-hewitt-the-typeface-by-chester-jenkins/) that the Cooper Hewitt made available as part of their open access project a few years ago.  I always like using the font for open access-related projects.  The fonts live in the `/data` folder.  They are applied to all of the text in the `*` section.
 
 # The Pi
 
 Once you have everything up and running you can access it from any browser.  You can try it [here](https://michaelweinberg.org/cma_pd/), press F11, and just let it happen in full screen.
 
-If you want to run it constantly it makes sense to devote a computer to the task. A Raspberry Pi is a prefect candidate.
+If you want to run it constantly as a picture frame it makes sense to devote a computer to the task. A Raspberry Pi is a prefect candidate because it is inexpensive and draws a relatively small amount of electricity.
 
-You could set things up so the pi hosts the file locally and then just opens it. I decided not to do that, mostly because that would involve automatically starting a local server on the pi, which was one more thing to set up. Since the service needs to be online to hit the API anyway, it was easier to just set up the page on my own domain.  
+You could set things up so the pi hosts the file locally and then just opens it. I decided not to do that, mostly because that would involve automatically starting a local server on the pi, which was one more thing to set up. Since the service needs to be online to hit the API anyway, I thought it would be easier to just set up the page on my own domain.  I have no idea if that is actually easier.
 
-There are two and a half things you need to do in order to set the pi to automatically boot into displaying the site in fullscreen mode.
+There are two and a half things you need to do in order to set the pi to automatically boot into displaying the site in fullscreen mode as a full time appliance.
 
 ## Start in Fullscreen Mode
 
@@ -250,11 +250,11 @@ You may find that your fullscreen display still gets a scroll bar on one side. I
 
 ## Turn off the Screen
 
-The final thing you might want to do is turn off the screen of the display at night.  In order to do this you need to make two entries in cron.  [Here](https://opensource.com/article/17/11/how-use-cron-linux) is a nice intro to cron.  It allows you to schedule commands.
+The final thing you might want to do is turn off the screen of the display at night.  In order to do this you need to make two entries in cron.  [Here](https://opensource.com/article/17/11/how-use-cron-linux) is a nice intro to cron.  Cron is a linux utility that allows you to schedule commands.
 
-The commands you end up scheduling may vary based on your particular setup.  [This](https://www.screenly.io/blog/2017/07/02/how-to-automatically-turn-off-and-on-your-monitor-from-your-raspberry-pi/) is a helpful tutorial laying out options to make this happen. The one that worked for me was the vcgencmd ones.
+The commands you end up scheduling may vary based on your particular setup.  [This](https://www.screenly.io/blog/2017/07/02/how-to-automatically-turn-off-and-on-your-monitor-from-your-raspberry-pi/) is a helpful tutorial laying out options to make this happen. The ones that worked for me were the `vcgencmd` ones.
 
-In order to schedule those I opened a terminal window and typed `crontab -e`.  I then added to lines.  This line turned off the display: `vcgencmd display_power 0` and this line turned it back on: `vcgencmd display_power 1`. Use crontab to schedule these at appropriate times.
+In order to schedule those I opened a terminal window and typed `crontab -e`.  I then added two lines.  This line turned off the display: `vcgencmd display_power 0` and this line turned it back on: `vcgencmd display_power 1`. Use crontab to schedule these at appropriate times.
 
 ---
 
