@@ -30,7 +30,7 @@ All of this means that it can be hard to create a reliable software-style licens
 
 ## OSHWA’s Approach
 
-One of the many questions all of this sets up is a bundling vs breakout approach to licensing.  Is it better to try and create an omni-license that covers the IP related to software, hardware, and documentation for OSHW, or to suggest users pick three licenses - one for software, one for hardware, and one for licensing?  A creator could make very different choices about sharing the three elements, so the omni approach could get complicated  fast.  At the same time, having three distinct licences is a lot more complicated than just having one.
+One of the many questions all of this sets up is a bundling vs breakout approach to licensing.  Is it better to try and create an omni-license that covers the IP related to software, hardware, and documentation for OSHW, or to suggest users pick three licenses - one for software, one for hardware, and one for documentation?  A creator could make very different choices about sharing the three elements, so the omni approach could get complicated  fast.  At the same time, having three distinct licences is a lot more complicated than just having one.
 
 OSHWA ultimately decided to go with the three license approach in its [certification program](https://certification.oshwa.org/).  This was driven in part by the realization that there were already mature licenses for software (OSI-approved open source software licenses) and documentation (Creative Commons licenses).  That allowed OSHWA to take a “don’t do anything new if you can avoid it” approach to licensing education.  It also required OSHWA to recommend licenses for hardware.
 
