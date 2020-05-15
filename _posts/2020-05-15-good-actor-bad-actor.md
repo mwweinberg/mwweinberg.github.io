@@ -32,30 +32,30 @@ Given the choice, which one of those is your priority?
 
 In order to support a good actor, you want to prioritize facilitating use and removing barriers. That means you want to use broadly permissive licenses that minimize the number of obligations and restrictions imposed on licensees.  You also want to avoid extensive legal language and disclaimers (even if they are substantively reasonable!) that can intimidate users and undermine confidence that they really are allowed to use the licensed works as you intend.
 
-* Good Actor Pros
+**Good Actor Pros**
 
-Makes it maximally easy for users to make use of whatever it is you are licensing
-Gives users confidence that you are inviting them to make use of whatever it is you are licensing, and that the terms are unlikely to change in the future
-Builds goodwill among user community
+* Makes it maximally easy for users to make use of whatever it is you are licensing
+* Gives users confidence that you are inviting them to make use of whatever it is you are licensing, and that the terms are unlikely to change in the future
+* Builds goodwill among user community
 
-* Good Actor Cons
+**Good Actor Cons**
 
-Likely prevents you from reserving every possible legal remedy to use against bad actors
-Allows bad actors to break some rules without facing direct legal consequences
+* Likely prevents you from reserving every possible legal remedy to use against bad actors
+* Allows bad actors to break some rules without facing direct legal consequences
 
 ### Bad Actor Approach
 
 In order to maximize your ability to punish a bad actor, you want to provide legal language that defines the types of permitted behavior as specifically as possible.  Although there is not an inherent conflict between legal specificity and clean writing (see, for example, the [Blue Oak Model License](https://blueoakcouncil.org/license/1.0.0)), in many cases that specificity will come with additional legal language and restrictions.  Even the most user-friendly legal language can intimidate legally unsophisticated users, and each additional restriction can dissuade some (potentially good) users from making use of the thing.  
 
-* Bad Actor Pros
+**Bad Actor Pros**
 
-Reserves as many legal tools as possible to punish users who break the rules
-Maximally shield you from legal liability
+* Reserves as many legal tools as possible to punish users who break the rules
+* Maximally shield you from legal liability
 
-* Bad Actor Cons
+**Bad Actor Cons**
 
-Can inadvertently discourage welcomes uses that users (incorrectly) perceived as beyond the scope of the rules
-May create ongoing necessity to engage with lawyers to revise rules and enforce violations
+* Can inadvertently discourage welcomes uses that users (incorrectly) perceived as beyond the scope of the rules
+* May create ongoing necessity to engage with lawyers to revise rules and enforce violations
 
 Lawyers are often trained to be conservative pessimists.  As a result, we tend to undervalue the costs associated with adding one more clause to an agreement or one more disclaimer on a site.  It is also true that adding the additional clause or disclaimer can allow you to prevail in litigation.  
 
