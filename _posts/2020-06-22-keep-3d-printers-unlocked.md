@@ -8,9 +8,11 @@ tags:
 - 3dprinting
 - 1201
 - dmca
+- make
 image:
     feature: jefferson_building.jpg
 ---
+*update 6/23/20: a version of this post is now also up on [Make](https://makezine.com/2020/06/23/makers-wanted-help-keep-3d-printers-unlocked/)*
 
 **tl;dr**: I need your help to keep 3D printers unlocked. If you know of a 3D printer that:
 
