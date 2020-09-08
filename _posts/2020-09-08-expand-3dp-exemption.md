@@ -1,7 +1,7 @@
 ---
 layout: post
 category: blog
-title: Keep 3D Printers Unlocked
+title: Keep 3D Printers Unlocked (the petitions)
 date: 2020-09-08
 tags:
 - copyright
