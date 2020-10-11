@@ -1,8 +1,8 @@
 ---
 layout: post
 category: blog
-title: Simulating Firefly Flashes with CircuitPython and Neopixels
-date: 2020-08-14
+title: Simulating Firefly Flashes with CircuitPython and Neopixels (Now with Classes!)
+date: 2020-10-11
 tags:
 - projects
 - OSHW
@@ -11,12 +11,11 @@ image:
      feature: firefly.jpg
 
 ---
-
-_Update 10/11/20: I did figure out how to use classes to automatically scale this to n lights! Updated post is [here](/blog/2020/10/11/neopixel-firefly-classes/)._
+_This is an updated version of an earlier post.  The earlier post did not use classes. Here is the [link to that post](/blog/2020/08/14/neopixel-firefly/) in case a slightly less functional non-class version is helpful._
 
 This post is a walkthrough for having [neopixels](https://learn.adafruit.com/adafruit-neopixel-uberguide) (individually addressable LEDs) flash in firefly patterns.  The script uses [circuitpython](https://circuitpython.org/) and uses three flash patterns from a National Park Service [website](https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm).  It should be very easy to add additional patterns as you see fit.  The full script can be found [here](https://github.com/mwweinberg/firefly/blob/master/firefly.py).  
 
-One quick note before getting started.  The current version of the script has 90% of the functionality I want it to have. I have a strong suspicion that the last 10% will require a full rewrite and more complex code. I'm putting up this post with simple code for anyone who wants to avoid the more complex version (if it ever ends up existing).
+The current version of the script can easily accommodate an arbitrary number of lights, randomly assigning a firefly type to each one.
 
 Here's the full code:
 
@@ -37,22 +36,26 @@ neo_g = 255
 neo_b = 0
 
 # variable to hold the number of neopixels
-number_of_lights = 7
+number_of_lights = 10
 
 #create the neopixel. auto_write=True avoids having to push changes (at the cost of speed, which probably doesn't matter here)
-pixels = neopixel.NeoPixel(board.NEOPIXEL, number_of_lights, brightness = 0.2, auto_write=False)
+pixels = neopixel.NeoPixel(board.NEOPIXEL, number_of_lights, brightness = 0.1, auto_write=False)
 
-# automatically spins up the seed reset times for each light
-reset_time_dict = {}
+# sets up the bug holder list, which holds all of the bug objects
 
-# sets the seeds to zero
-for i in range(0, number_of_lights):
-    var_name = 'resetTime' + str(i)
-    reset_time_dict[var_name] = time.monotonic()
+bug_holder = []
 
 
-print(reset_time_dict)
+# sets up the bug class
 
+class Bug:
+    def __init__(self, type, reset_time_input, light_number):
+        self.type = type
+        self.reset_time_input = reset_time_input
+        self.light_number = light_number
+
+
+#functions to turn light on and off
 def on(light_num):
     pixels[light_num] = (neo_r, neo_g, neo_b)
     pixels.show()
@@ -60,6 +63,8 @@ def off(light_num):
     pixels[light_num] = (0, 0, 0)
     pixels.show()
 
+
+#functions for the types of fireflies
 def brimleyi(reset_time_input, light_number):
     #calculates how much time has passed since the new zero
     time_from_zero = time.monotonic() - reset_time_input
@@ -138,23 +143,37 @@ def carolinus(reset_time_input, light_number):
     return reset_time
 
 
+#create all of the light objects by appending a new light object to the list for each neopixel
+#the first argument (random.randint(1, 3)) is used to assign a random number which corresponds to one of the ff functions
+#if you start adding lots of those it might be worth using a universal variable
+
+for i in range (0, number_of_lights):
+    bug_holder.append(Bug(random.randint(1, 3), time.monotonic(), i))
+
+
 while True:
 
-    reset_time_dict["resetTime2"] = brimleyi(reset_time_dict["resetTime2"], 2)
-    reset_time_dict["resetTime3"] = brimleyi(reset_time_dict["resetTime3"], 3)
-    reset_time_dict["resetTime4"] = macdermotti(reset_time_dict["resetTime4"], 4)
-    reset_time_dict["resetTime5"] = carolinus(reset_time_dict["resetTime5"], 5)
-    reset_time_dict["resetTime6"] = carolinus(reset_time_dict["resetTime6"], 6)
+    #iterates through all of the light objects in the bug_holder list
+    #use the series of if statements to match the randomly assigned number to the types of fireflies
 
-
-
+    for i in range (0, number_of_lights):
+        if bug_holder[i].type == 1:
+            bug_holder[i].reset_time_input = brimleyi(bug_holder[i].reset_time_input, i)
+        elif bug_holder[i].type == 2:
+            bug_holder[i].reset_time_input = macdermotti(bug_holder[i].reset_time_input, i)
+        elif bug_holder[i].type == 3:
+            bug_holder[i].reset_time_input = carolinus(bug_holder[i].reset_time_input, i)
+        #this is just a catchall if there is some sort of error
+        else:
+            bug_holder[i].reset_time_input = brimleyi(bug_holder[i].reset_time_input, i)
+            print("number error")
 
 
     #briefly pauses the loop to avoid crashing the USB bus. Also makes it easier to see what is happening.
     time.sleep(0.25)
 ```
 
-At a high  level, it creates three functions (one for each type of firefly flash pattern) and then assigns that pattern to a light.  The patterns are based on timing, so it uses the `monotonic()` function to keep track of time.  There is not a real clock on microcontrollers, so `monotonic()` just counts up from the moment the board turns on.
+At a high level, it creates a `Bug` class for each light, three functions (one for each type of firefly flash pattern) and then assigns that pattern to a light.  The patterns are based on timing, so it uses the `monotonic()` function to keep track of time.  There is not a real clock on microcontrollers, so `monotonic()` just counts up from the moment the board turns on.
 
 ```python
 #https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm
@@ -178,10 +197,10 @@ The next part holds the color for the LED.   The current color is yellow, althou
 
 ```python
 # variable to hold the number of neopixels
-number_of_lights = 7
+number_of_lights = 10
 ```
 
-This variable holds the number of lights you are using.  It is moderately useful to have this as a variable now, and likely very useful when the script is fully functional and can automatically populate n lights.
+This variable holds the number of lights you are using.  This makes it easy to change the number of lights you are controlling.
 
 ```python
 #create the neopixel. auto_write=True avoids having to push changes (at the cost of speed, which probably doesn't matter here)
@@ -190,25 +209,23 @@ pixels = neopixel.NeoPixel(board.NEOPIXEL, number_of_lights, brightness = 0.2, a
 This line initializes the neopixels. I developed this on an Adafruit circuit playground board, so you may need to change this line depending on your setup.  The other thing to point out here is that the `brightness` variable is set to `0.2`. Neopixels are bright, so I toned things down during development. You might want to make them brighter for your final installation.   
 
 ```python
-# automatically spins up the seed reset times for each light
-reset_time_dict = {}
+# sets up the bug holder list, which holds all of the bug objects
+
+bug_holder = []
 ```
-This creates a dictionary to hold the reset times for each light. Each light resets its timer at the end of a cycle, so you need a variable to hold the reset time for each individual light.
+This creates the list to hold each individual instance of the bug light object. Holding them in a list makes it easy to address them as necessary.
 
 ```python
-# sets the seeds to zero
-for i in range(0, number_of_lights):
-    var_name = 'resetTime' + str(i)
-    reset_time_dict[var_name] = time.monotonic()
+# sets up the bug class
+
+class Bug:
+    def __init__(self, type, reset_time_input, light_number):
+        self.type = type
+        self.reset_time_input = reset_time_input
+        self.light_number = light_number
 ```
 
-This automatically sets the reset time for each light, by iterating based on the `number_of_lights` variable from above.  
-
-```python
-print(reset_time_dict)
-```
-
-This print line was just for troubleshooting. I should probably just delete it.
+This creates the `Bug` class.  Each individual neopixel is an instantiation of a 'Bug'.  It has a `type`, which corresponds to the flash pattern it uses, a `reset_time_input` to keep track of time, and a `light_number` to assign it to a specific light. It is possible that the `light_number` is redundant because it also corresponds to its order in the list, but I'm still in baby step territory so I didn't want to push it.   
 
 ```python
 def on(light_num):
@@ -261,18 +278,43 @@ As soon as the cycle is complete, it returns a new `reset_time`.  Remember that 
 The `macdermotti()` and `carolinus()` functions work the same way. If you want to make a new function for a new pattern, just duplicate it, rename it, and change the if statements.
 
 ```python
+#create all of the light objects by appending a new light object to the list for each neopixel
+#the first argument (random.randint(1, 3)) is used to assign a random number which corresponds to one of the ff functions
+#if you start adding lots of those it might be worth using a universal variable
+
+for i in range (0, number_of_lights):
+    bug_holder.append(Bug(random.randint(1, 3), time.monotonic(), i))
+```
+Having done all of the setup work, this is where things start to actually happen.  This loop creates as many `Bug` instances as necessary to match the number of lights you want to control.  The first argument `random.randint(1, 3)` assigns an integer that corresponds to one of the three blink functions.  The second argument `time.monotonic()` is the start time based on the board's counter.  The last argument `i` assigns the instance to a specific light.
+
+```python
 while True:
 
-    reset_time_dict["resetTime2"] = brimleyi(reset_time_dict["resetTime2"], 2)
-    reset_time_dict["resetTime3"] = brimleyi(reset_time_dict["resetTime3"], 3)
-    reset_time_dict["resetTime4"] = macdermotti(reset_time_dict["resetTime4"], 4)
-    reset_time_dict["resetTime5"] = carolinus(reset_time_dict["resetTime5"], 5)
-    reset_time_dict["resetTime6"] = carolinus(reset_time_dict["resetTime6"], 6)
+    #iterates through all of the light objects in the bug_holder list
+    #use the series of if statements to match the randomly assigned number to the types of fireflies
+
+    for i in range (0, number_of_lights):
+        if bug_holder[i].type == 1:
+            bug_holder[i].reset_time_input = brimleyi(bug_holder[i].reset_time_input, i)
+        elif bug_holder[i].type == 2:
+            bug_holder[i].reset_time_input = macdermotti(bug_holder[i].reset_time_input, i)
+        elif bug_holder[i].type == 3:
+            bug_holder[i].reset_time_input = carolinus(bug_holder[i].reset_time_input, i)
+        #this is just a catchall if there is some sort of error
+        else:
+            bug_holder[i].reset_time_input = brimleyi(bug_holder[i].reset_time_input, i)
+            print("number error")
 ```
 
-Now that all of the functions work, this `while` loop will just keep running them forever.
+This is the loop that constantly checks each light to see if it should be on or off based on the pattern assigned to it.  As it loops through each of the lights:
 
-`reset_time_dict["resetTime2"]` starts with the reset time for light #2 that we automatically generated at the top of the script.  `brimleyi(reset_time_dict["resetTime2"], 2)` calls the `brimleyi()` function, using that reset time.  Because the end of the functions all return their 'new' reset time (even if it was not updated that cycle), the reset time in the dictionary will always be the one you want to work with.
+```python
+  for i in range (0, number_of_lights):
+```
+
+it looks to see which `type` of light it is.  It then uses the type to decide which pattern function to use.  The end of each function returns their 'new' reset time even if their state did not change, so these sections end by updating the reset time.
+
+Now that all of the functions work, this `while` loop will just keep running them forever.
 
 ```python
 #briefly pauses the loop to avoid crashing the USB bus. Also makes it easier to see what is happening.
@@ -281,14 +323,5 @@ Now that all of the functions work, this `while` loop will just keep running the
 
 This last line just rests for 0.25 seconds.  Before I added it, the looping was flooding the USB bus and creating all sorts of problems.  Briefly pausing everything just makes it easier to work with.  
 
----
-
-At the top of this post I mentioned that the script did 90% of what I want it to do. The remaining 10% has to do with everything in the while loop.  
-
-You might have noticed that the reset times are automatically generated for each light at the start of the loop. However, you need to manually create an entry for every light in the while loop.  
-
-Ideally, this script would automatically create the entries for the lights in the while loop and randomly assign them a flash pattern. Unfortunately, I think doing so will probably require turning the pattern functions into classes. Or at least that's what the Coding Train's [Nature of Code](https://www.youtube.com/watch?v=70MQ-FugwbI) series has me thinking about these days.
-
-Classes or no classes, I still haven't figure out how to fully automate things yet. Once I do, I'll post some updated code.  Until then, hopefully this is useful to someone else.
 
 *header image: [Case (Inrō) with Design of Fireflies in Flight and Climbing on Stone Baskets and Reeds at the Shore](https://www.metmuseum.org/art/collection/search/58837)*
