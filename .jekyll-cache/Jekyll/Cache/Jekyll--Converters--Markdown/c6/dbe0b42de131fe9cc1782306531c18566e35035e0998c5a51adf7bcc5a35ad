@@ -1,0 +1,2 @@
+I"Ü<p>With the <a href="/blog/2020/10/23/oshwa-cert-api/">recent release</a> of the live <a href="https://certificationapi.oshwa.org/documentation">OSHWA Open Source Hardware Certification API</a>, I wanted to build a map that tracked the live distribution of certified open source hardware across the globe.  You can see the map <a href="">here</a>.  You can see the code <a href="https://github.com/mwweinberg/oshwa_cert_map">here</a>. This post explains how it all works.</p>
+:ET
