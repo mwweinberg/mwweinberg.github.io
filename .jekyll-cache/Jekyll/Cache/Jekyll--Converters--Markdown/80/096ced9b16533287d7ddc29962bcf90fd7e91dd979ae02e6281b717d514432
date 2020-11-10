@@ -1,0 +1,480 @@
+I"��<p>With the <a href="/blog/2020/10/23/oshwa-cert-api/">recent release</a> of the live <a href="https://certificationapi.oshwa.org/documentation">OSHWA Open Source Hardware Certification API</a>, I wanted to build a map that tracked the live distribution of certified open source hardware across the globe.  You can see the map <a href="/oshwa_certification_map/">here</a>.  You can see the code <a href="https://github.com/mwweinberg/oshwa_cert_map">here</a>. This post explains how it all works.</p>
+
+<p>The map I made is called a <a href="https://en.wikipedia.org/wiki/Choropleth_map">choropleth</a>.  It uses color intensity to compare the number of pieces of certified hardware between countries.  I created it using <a href="https://leafletjs.com/">leaflet.js</a>. I chose leaflet mostly because I learned how to use it on a <a href="https://www.youtube.com/watch?v=nZaZ2dB6pow">Coding Train tutorial</a>.  That tutorial also taught me how to access APIs, which is another piece of this project.</p>
+
+<p>At a high level, creating the map involves a few steps:</p>
+
+<ol>
+  <li>
+    <p>Download information from the <a href="https://certificationapi.oshwa.org/documentation">OSHWA Open Source Hardware Certification API</a> to get up to date information about all of the certified hardware.</p>
+  </li>
+  <li>
+    <p>Add the number of pieces of certified hardware to the GeoJSON file.  The GeoJSON file is the file that has the geometries for all of the countries so that they can be drawn on the map (and colored appropriately).</p>
+  </li>
+  <li>
+    <p>Load the map.</p>
+  </li>
+  <li>
+    <p>Add a layer on top of the map representing the number of pieces of certified hardware.</p>
+  </li>
+</ol>
+
+<h2 id="downloading-the-current-registration-information">Downloading the Current Registration Information</h2>
+
+<p>The first thing you need to do for the map is get the current information about OSHWA certifications.  Once you <a href="https://certificationapi.oshwa.org/">get an API key</a>, you can look to the API documentation for example code that shows you how to access specific information in specific languages.  For this map we are just going to <a href="https://certificationapi.oshwa.org/documentation#tag/Project/paths/~1api~1projects/get">get all of the OSHWA certified hardware projects</a>.</p>
+
+<p>In order to get the data, you can just copy the example code from the documentation.  There are two things to keep in mind when you do this.</p>
+
+<p>First, in order to actually get the data from the API into an object that is useful for javascript you need to parse it into a variable:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Second, everything else in this code will happen in the place held by the <code class="highlighter-rouge">console.log(this.responseText);</code> in the example code. I think doing this causes everything to wait until the API data has been downloaded but I could be very wrong about that.</p>
+
+<h2 id="unite-the-jsons">Unite the JSONs</h2>
+
+<p>Once you have the API data you need to combine it with the GeoJSON for the world.  The first step is to create an object that contains the certified hardware count per country.  That function is called in the <code class="highlighter-rouge">var country_counter = countCountry(data);</code> line.  That calls the <code class="highlighter-rouge">countCountry()</code> function:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">countCountry</span><span class="p">(</span><span class="nx">input_json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//create a temporary dictionary in the function</span>
+  <span class="nx">function_country_counter</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="c1">//loop through all of the entries</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">input_json</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">input_json</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">]);</span>
+    <span class="kd">var</span> <span class="nx">country</span> <span class="o">=</span> <span class="nx">input_json</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">];</span>
+
+    <span class="c1">//this checks to see if the country is in the list</span>
+    <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">function_country_counter</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">country</span><span class="p">);</span>
+    <span class="c1">//console.log(result);</span>
+
+    <span class="c1">//if the country is not in the dictionary</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">function_country_counter</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">country</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//console.log('fffalse');</span>
+      <span class="c1">//add the country with a count 1</span>
+      <span class="nx">function_country_counter</span><span class="p">[</span><span class="nx">country</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="c1">//console.log(function_country_counter);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//if the country is in the dictionary</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">function_country_counter</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">country</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//console.log('tttrue');</span>
+      <span class="c1">//increment the counter</span>
+      <span class="nx">function_country_counter</span><span class="p">[</span><span class="nx">country</span><span class="p">]</span> <span class="o">=</span> <span class="nx">function_country_counter</span><span class="p">[</span><span class="nx">country</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="c1">//console.log(function_country_counter);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">//return the tempoary dictionary</span>
+  <span class="k">return</span> <span class="nx">function_country_counter</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Once you have the <code class="highlighter-rouge">countCountry()</code> object, you can add it to the GeoJSON.  The <code class="highlighter-rouge">combineJSONs()</code> function adds the <code class="highlighter-rouge">HW_COUNT</code> feature to the GeoJSON. It uses what seems like a comically inefficient process for doing this, but that’s what some person on stack overflow suggested and it worked, so…..</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">unction</span> <span class="nx">combineJSONs</span><span class="p">(</span><span class="nx">country_list</span><span class="p">,</span> <span class="nx">geo_json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="nx">x</span> <span class="k">in</span> <span class="nx">country_list</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">//apparently the best way to add things to the geojson is to</span>
+    <span class="c1">//loop over the entire thing every time to see if there is a match</span>
+    <span class="c1">//and then add the entry when there is</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the name of the country blob in the geo_json</span>
+      <span class="c1">//being iterated upon equals x, which is the current country</span>
+      <span class="c1">//from the country_list in the iteration</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">properties</span><span class="p">.</span><span class="nx">ADMIN</span> <span class="o">===</span> <span class="nx">x</span><span class="p">){</span>
+        <span class="c1">//add a new elements that is HW_COUNT:&lt;number of HW from the country_list&gt;</span>
+        <span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">properties</span><span class="p">[</span><span class="dl">"</span><span class="s2">HW_COUNT</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">country_list</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">//now loop over everything again and add a HW_COUNT of 0 to everything else</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">properties</span><span class="p">.</span><span class="nx">HW_COUNT</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">properties</span><span class="p">.</span><span class="nx">HW_COUNT</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+        <span class="nx">geo_json</span><span class="p">.</span><span class="nx">features</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">properties</span><span class="p">[</span><span class="dl">"</span><span class="s2">HW_COUNT</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+
+    <span class="c1">//prints the updated geojson</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">geo_json</span><span class="p">);</span>
+    <span class="c1">//returns the updated geojson</span>
+    <span class="k">return</span><span class="p">(</span><span class="nx">geo_json</span><span class="p">);</span>
+
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now you have a <code class="highlighter-rouge">combined_jsons</code> object that has all of the geographic information for the countries and the information about how many pieces of hardware is certified in each country.</p>
+
+<h2 id="make-the-map">Make the map</h2>
+
+<p>At this point, everything basically follows the <a href="https://leafletjs.com/examples/choropleth/">leaflet interactive choropleth tutoria</a>.  The only real changes I made were:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">info</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  		<span class="k">this</span><span class="p">.</span><span class="nx">_div</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;h4&gt;OSHWA Open Source Hardware Certifications&lt;/h4&gt;</span><span class="dl">'</span> <span class="o">+</span>  <span class="p">(</span><span class="nx">props</span> <span class="p">?</span>
+  			<span class="dl">'</span><span class="s1">&lt;b&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">props</span><span class="p">.</span><span class="nx">ADMIN</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/b&gt;&lt;br /&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">props</span><span class="p">.</span><span class="nx">HW_COUNT</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> registrations</span><span class="dl">'</span>
+  			<span class="p">:</span> <span class="dl">'</span><span class="s1">Hover over a country for registration count</span><span class="dl">'</span><span class="p">);</span>
+  	<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Updating this section so the title box talked about OSHWA</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getColor</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">d</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">#800026</span><span class="dl">'</span> <span class="p">:</span>
+        <span class="nx">d</span> <span class="o">&gt;</span> <span class="mi">20</span>  <span class="p">?</span> <span class="dl">'</span><span class="s1">#BD0026</span><span class="dl">'</span> <span class="p">:</span>
+        <span class="nx">d</span> <span class="o">&gt;</span> <span class="mi">10</span>  <span class="p">?</span> <span class="dl">'</span><span class="s1">#E31A1C</span><span class="dl">'</span> <span class="p">:</span>
+        <span class="nx">d</span> <span class="o">&gt;</span> <span class="mi">5</span>  <span class="p">?</span> <span class="dl">'</span><span class="s1">#FC4E2A</span><span class="dl">'</span> <span class="p">:</span>
+        <span class="nx">d</span> <span class="o">&gt;</span> <span class="mi">1</span>   <span class="p">?</span> <span class="dl">'</span><span class="s1">#FD8D3C</span><span class="dl">'</span> <span class="p">:</span>
+              <span class="dl">'</span><span class="s1">#FFFFFF</span><span class="dl">'</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>changed the thresholds and colors associated with those thresholds</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">style</span><span class="p">(</span><span class="nx">feature</span><span class="p">)</span> <span class="p">{</span>
+  		<span class="k">return</span> <span class="p">{</span>
+  			<span class="na">weight</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  			<span class="na">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  			<span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#d9d9d9</span><span class="dl">'</span><span class="p">,</span>
+  			<span class="na">dashArray</span><span class="p">:</span> <span class="dl">'</span><span class="s1">3</span><span class="dl">'</span><span class="p">,</span>
+  			<span class="na">fillOpacity</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>
+  			<span class="na">fillColor</span><span class="p">:</span> <span class="nx">getColor</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">HW_COUNT</span><span class="p">)</span>
+  		<span class="p">};</span>
+  	<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">layer</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">({</span>
+      <span class="na">weight</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#666</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">dashArray</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">fillOpacity</span><span class="p">:</span> <span class="mf">0.7</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+<p>slightly changed the weight and colors of the borders</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">map</span><span class="p">.</span><span class="nx">attributionControl</span><span class="p">.</span><span class="nx">addAttribution</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hardware Registrations from the &lt;a href="https://certification.oshwa.org/"&gt;OSHWA Open Source Hardware Certification Program&lt;/a&gt;</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>changed the attribution light_number</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">DomUtil</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">legend</span><span class="dl">"</span><span class="p">),</span>
+  			<span class="nx">grades</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+  			<span class="nx">labels</span> <span class="o">=</span> <span class="p">[],</span>
+  			<span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">;</span>
+
+  		<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">grades</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">from</span> <span class="o">=</span> <span class="nx">grades</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  			<span class="c1">//to = grades[i + 1];</span>
+        <span class="nx">to</span> <span class="o">=</span> <span class="p">(</span><span class="nx">grades</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>changed how the legend to match the other cutoffs.</p>
+
+<p>That’s the long and short of it.  I hope you take some time to play with the <a href="https://certificationapi.oshwa.org/documentation">API</a> and build a more interesting visualization than I put together.</p>
+
+<p><em>This is an updated version of an earlier post.  The earlier post did not use classes. Here is the <a href="/blog/2020/08/14/neopixel-firefly/">link to that post</a> in case a slightly less functional non-class version is helpful.</em></p>
+
+<p>This post is a walkthrough for having <a href="https://learn.adafruit.com/adafruit-neopixel-uberguide">neopixels</a> (individually addressable LEDs) flash in firefly patterns.  The script uses <a href="https://circuitpython.org/">circuitpython</a> and uses three flash patterns from a National Park Service <a href="https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm">website</a>.  It should be very easy to add additional patterns as you see fit.  The full script can be found <a href="https://github.com/mwweinberg/firefly/blob/master/firefly.py">here</a>.</p>
+
+<p>The current version of the script can easily accommodate an arbitrary number of lights, randomly assigning a firefly type to each one.</p>
+
+<p>Here’s the full code:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm
+</span>
+<span class="kn">import</span> <span class="nn">board</span>
+<span class="kn">import</span> <span class="nn">digitalio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">neopixel</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+
+<span class="c1">#variables to hold the color that the LED will blink
+</span><span class="n">neo_r</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">neo_g</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">neo_b</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># variable to hold the number of neopixels
+</span><span class="n">number_of_lights</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1">#create the neopixel. auto_write=True avoids having to push changes (at the cost of speed, which probably doesn't matter here)
+</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">neopixel</span><span class="p">.</span><span class="n">NeoPixel</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">NEOPIXEL</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">,</span> <span class="n">brightness</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">auto_write</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># sets up the bug holder list, which holds all of the bug objects
+</span>
+<span class="n">bug_holder</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="c1"># sets up the bug class
+</span>
+<span class="k">class</span> <span class="nc">Bug</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">light_number</span> <span class="o">=</span> <span class="n">light_number</span>
+
+
+<span class="c1">#functions to turn light on and off
+</span><span class="k">def</span> <span class="nf">on</span><span class="p">(</span><span class="n">light_num</span><span class="p">):</span>
+    <span class="n">pixels</span><span class="p">[</span><span class="n">light_num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">neo_r</span><span class="p">,</span> <span class="n">neo_g</span><span class="p">,</span> <span class="n">neo_b</span><span class="p">)</span>
+    <span class="n">pixels</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">off</span><span class="p">(</span><span class="n">light_num</span><span class="p">):</span>
+    <span class="n">pixels</span><span class="p">[</span><span class="n">light_num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">pixels</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1">#functions for the types of fireflies
+</span><span class="k">def</span> <span class="nf">brimleyi</span><span class="p">(</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+    <span class="c1">#calculates how much time has passed since the new zero
+</span>    <span class="n">time_from_zero</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">reset_time_input</span>
+    <span class="c1"># creates the carry over reset_time variable so that it can be returned even if it is not updated in the last if statement
+</span>    <span class="n">reset_time</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+
+    <span class="c1"># on flash
+</span>    <span class="k">if</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">5.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">15</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">15.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="c1"># reset (includes 10 seconds after second flash - 5 on the back end and 5 on the front end)
+</span>    <span class="k">elif</span> <span class="n">time_from_zero</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+        <span class="n">reset_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># all of the off times
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reset_time</span>
+
+<span class="k">def</span> <span class="nf">macdermotti</span> <span class="p">(</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+    <span class="c1">#calculates how much time has passed since the new zero
+</span>    <span class="n">time_from_zero</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">reset_time_input</span>
+    <span class="c1"># creates the carry over reset_time variable so that it can be returned even if it is not updated in the last if statement
+</span>    <span class="n">reset_time</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+
+    <span class="c1"># on flash
+</span>    <span class="k">if</span> <span class="mi">3</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">3.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">5.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">10.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">12</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">12.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">time_from_zero</span> <span class="o">&gt;</span> <span class="mf">14.5</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+        <span class="n">reset_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reset_time</span>
+
+<span class="k">def</span> <span class="nf">carolinus</span><span class="p">(</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+    <span class="n">time_from_zero</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">reset_time_input</span>
+    <span class="c1"># creates the carry over reset_time variable so that it can be returned even if it is not updated in the last if statement
+</span>    <span class="n">reset_time</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">1.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">2.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">3</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">3.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">4</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">4.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">5.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">6</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">6.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">time_from_zero</span> <span class="o">&gt;=</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+        <span class="n">reset_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reset_time</span>
+
+
+<span class="c1">#create all of the light objects by appending a new light object to the list for each neopixel
+#the first argument (random.randint(1, 3)) is used to assign a random number which corresponds to one of the ff functions
+#if you start adding lots of those it might be worth using a universal variable
+</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">):</span>
+    <span class="n">bug_holder</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Bug</span><span class="p">(</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">(),</span> <span class="n">i</span><span class="p">))</span>
+
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+
+    <span class="c1">#iterates through all of the light objects in the bug_holder list
+</span>    <span class="c1">#use the series of if statements to match the randomly assigned number to the types of fireflies
+</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">brimleyi</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">macdermotti</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">carolinus</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="c1">#this is just a catchall if there is some sort of error
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">brimleyi</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"number error"</span><span class="p">)</span>
+
+
+    <span class="c1">#briefly pauses the loop to avoid crashing the USB bus. Also makes it easier to see what is happening.
+</span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>At a high level, it creates a <code class="highlighter-rouge">Bug</code> class for each light, three functions (one for each type of firefly flash pattern) and then assigns that pattern to a light.  The patterns are based on timing, so it uses the <code class="highlighter-rouge">monotonic()</code> function to keep track of time.  There is not a real clock on microcontrollers, so <code class="highlighter-rouge">monotonic()</code> just counts up from the moment the board turns on.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm
+</span>
+<span class="kn">import</span> <span class="nn">board</span>
+<span class="kn">import</span> <span class="nn">digitalio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">neopixel</span>
+<span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div></div>
+
+<p>The first part of the code imports the libraries used by the script.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#variables to hold the color that the LED will blink
+</span><span class="n">neo_r</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">neo_g</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">neo_b</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+<p>The next part holds the color for the LED.   The current color is yellow, although you could make it whatever you want. This script uses the same color for all of the lights, regardless of their pattern.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># variable to hold the number of neopixels
+</span><span class="n">number_of_lights</span> <span class="o">=</span> <span class="mi">10</span>
+</code></pre></div></div>
+
+<p>This variable holds the number of lights you are using.  This makes it easy to change the number of lights you are controlling.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#create the neopixel. auto_write=True avoids having to push changes (at the cost of speed, which probably doesn't matter here)
+</span><span class="n">pixels</span> <span class="o">=</span> <span class="n">neopixel</span><span class="p">.</span><span class="n">NeoPixel</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">NEOPIXEL</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">,</span> <span class="n">brightness</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">auto_write</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+<p>This line initializes the neopixels. I developed this on an Adafruit circuit playground board, so you may need to change this line depending on your setup.  The other thing to point out here is that the <code class="highlighter-rouge">brightness</code> variable is set to <code class="highlighter-rouge">0.2</code>. Neopixels are bright, so I toned things down during development. You might want to make them brighter for your final installation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># sets up the bug holder list, which holds all of the bug objects
+</span>
+<span class="n">bug_holder</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+<p>This creates the list to hold each individual instance of the bug light object. Holding them in a list makes it easy to address them as necessary.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># sets up the bug class
+</span>
+<span class="k">class</span> <span class="nc">Bug</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">light_number</span> <span class="o">=</span> <span class="n">light_number</span>
+</code></pre></div></div>
+
+<p>This creates the <code class="highlighter-rouge">Bug</code> class.  Each individual neopixel is an instantiation of a ‘Bug’.  It has a <code class="highlighter-rouge">type</code>, which corresponds to the flash pattern it uses, a <code class="highlighter-rouge">reset_time_input</code> to keep track of time, and a <code class="highlighter-rouge">light_number</code> to assign it to a specific light. It is possible that the <code class="highlighter-rouge">light_number</code> is redundant because it also corresponds to its order in the list, but I’m still in baby step territory so I didn’t want to push it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">on</span><span class="p">(</span><span class="n">light_num</span><span class="p">):</span>
+    <span class="n">pixels</span><span class="p">[</span><span class="n">light_num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">neo_r</span><span class="p">,</span> <span class="n">neo_g</span><span class="p">,</span> <span class="n">neo_b</span><span class="p">)</span>
+    <span class="n">pixels</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">off</span><span class="p">(</span><span class="n">light_num</span><span class="p">):</span>
+    <span class="n">pixels</span><span class="p">[</span><span class="n">light_num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">pixels</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>These two little functions define the neopixel being on and being off. Each pattern function needs to turn lights on and off, so it was easier to define that behavior once and reuse it as a function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">brimleyi</span><span class="p">(</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">light_number</span><span class="p">):</span>
+    <span class="c1">#calculates how much time has passed since the new zero
+</span>    <span class="n">time_from_zero</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">reset_time_input</span>
+    <span class="c1"># creates the carry over reset_time variable so that it can be returned even if it is not updated in the last if statement
+</span>    <span class="n">reset_time</span> <span class="o">=</span> <span class="n">reset_time_input</span>
+
+    <span class="c1"># on flash
+</span>    <span class="k">if</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">5.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="mi">15</span> <span class="o">&lt;=</span> <span class="n">time_from_zero</span> <span class="o">&lt;=</span> <span class="mf">15.5</span><span class="p">:</span>
+        <span class="n">on</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="c1"># reset (includes 10 seconds after second flash - 5 on the back end and 5 on the front end)
+</span>    <span class="k">elif</span> <span class="n">time_from_zero</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+        <span class="n">reset_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># all of the off times
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="n">off</span><span class="p">(</span><span class="n">light_number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reset_time</span>
+</code></pre></div></div>
+
+<p>This is the first blinking function.  It takes two arguments. The <code class="highlighter-rouge">reset_time_input</code> is the counter start time.  The <code class="highlighter-rouge">light_number</code> is which neopixel it is controlling.</p>
+
+<p>Without a real clock, all of the flash functions are controlled by a counter.  You can think of the counter starting at 0 for the first loop (it doesn’t actually start a 0 the first time, but ignore that for a minute).</p>
+
+<p><code class="highlighter-rouge">time_from_zero = time.monotonic() - reset_time_input</code> figures out how long it has been since the start of the counter.  In the example first loop, the <code class="highlighter-rouge">reset_time_input</code> would be 0.  If it has been 2 seconds since the counter started counting, the <code class="highlighter-rouge">time_from_zero</code> would equal 2.</p>
+
+<p>That value is then compared to a bunch of <code class="highlighter-rouge">if</code> statements that determine if the light is on or off.  In this first function, the light goes on if the <code class="highlighter-rouge">time_from_zero</code> is between 5 and 5.5 seconds, and between 15 and 15.5 seconds.  Because the default state of things is that the light is off, we only need <code class="highlighter-rouge">if</code> triggers for when the light needs to be on.</p>
+
+<p>Once the <code class="highlighter-rouge">time_from_zero</code> exceeds 20 seconds, the counter resets.  That reset is based on the current time (<code class="highlighter-rouge">time.monotonic()</code>) with a bit of random variation (<code class="highlighter-rouge">random.uniform(-3, 3)</code>) so that the different lights are not all in sync (the <code class="highlighter-rouge">carolinus()</code> function does not include this random variation because the carolinus bugs flash in unison).</p>
+
+<p>As soon as the cycle is complete, it returns a new <code class="highlighter-rouge">reset_time</code>.  Remember that there is only one counter on the board, and it just keeps counting up.  The first time through the cycle, <code class="highlighter-rouge">reset_time_input</code> might be 0. The second time through, the cycle ‘starts’ closer to 20.  Similarly, instead of being 2 the first time around, the <code class="highlighter-rouge">time.monotonic()</code> will be 22 the second time around.  The <code class="highlighter-rouge">time_from_zero</code> function normalizes all of this, because 2-0, 22-20, and 82-80 are all the same value.  That allows the function to keep working over time.</p>
+
+<p>The <code class="highlighter-rouge">macdermotti()</code> and <code class="highlighter-rouge">carolinus()</code> functions work the same way. If you want to make a new function for a new pattern, just duplicate it, rename it, and change the if statements.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#create all of the light objects by appending a new light object to the list for each neopixel
+#the first argument (random.randint(1, 3)) is used to assign a random number which corresponds to one of the ff functions
+#if you start adding lots of those it might be worth using a universal variable
+</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">):</span>
+    <span class="n">bug_holder</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Bug</span><span class="p">(</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">(),</span> <span class="n">i</span><span class="p">))</span>
+</code></pre></div></div>
+<p>Having done all of the setup work, this is where things start to actually happen.  This loop creates as many <code class="highlighter-rouge">Bug</code> instances as necessary to match the number of lights you want to control.  The first argument <code class="highlighter-rouge">random.randint(1, 3)</code> assigns an integer that corresponds to one of the three blink functions.  The second argument <code class="highlighter-rouge">time.monotonic()</code> is the start time based on the board’s counter.  The last argument <code class="highlighter-rouge">i</code> assigns the instance to a specific light.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+
+    <span class="c1">#iterates through all of the light objects in the bug_holder list
+</span>    <span class="c1">#use the series of if statements to match the randomly assigned number to the types of fireflies
+</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">brimleyi</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">macdermotti</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">carolinus</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="c1">#this is just a catchall if there is some sort of error
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span> <span class="o">=</span> <span class="n">brimleyi</span><span class="p">(</span><span class="n">bug_holder</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">reset_time_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"number error"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is the loop that constantly checks each light to see if it should be on or off based on the pattern assigned to it.  As it loops through each of the lights:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">):</span>
+</code></pre></div></div>
+
+<p>it looks to see which <code class="highlighter-rouge">type</code> of light it is.  It then uses the type to decide which pattern function to use.  The end of each function returns their ‘new’ reset time even if their state did not change, so these sections end by updating the reset time.</p>
+
+<p>Now that all of the functions work, this <code class="highlighter-rouge">while</code> loop will just keep running them forever.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#briefly pauses the loop to avoid crashing the USB bus. Also makes it easier to see what is happening.
+</span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This last line just rests for 0.25 seconds.  Before I added it, the looping was flooding the USB bus and creating all sorts of problems.  Briefly pausing everything just makes it easier to work with.</p>
+
+<p><em>header image: <a href="https://www.metmuseum.org/art/collection/search/58837">Case (Inrō) with Design of Fireflies in Flight and Climbing on Stone Baskets and Reeds at the Shore</a></em></p>
+:ET
