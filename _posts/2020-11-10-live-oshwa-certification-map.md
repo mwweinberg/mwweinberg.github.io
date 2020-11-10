@@ -2,7 +2,7 @@
 layout: post
 category: blog
 title: Creating a Live OSHWA Certification Map
-date: 2020-11-11
+date: 2020-11-10
 tags:
 - projects
 - OSHW
