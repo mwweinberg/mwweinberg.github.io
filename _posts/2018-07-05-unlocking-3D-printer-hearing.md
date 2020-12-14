@@ -6,13 +6,13 @@ date: 2018-07-05
 tags:
 - copyright
 - 3dprinting
-- 1201
+- '1201'
 image:
     feature: jefferson_building.jpg
 ---
 
 *I originally wrote this post on April 14, immediately after the hearing it describes. At the time I assumed that the video of the proceeding would be released soon, so I held it in drafts until I could add the relevant videos.  As it is now early July, I decided to post what I have as is.  I'll add the videos if/when the Copyright Office ever posts them.*
- 
+
 *Update July 29: the videos are live*
 
 On April 13 the US Copyright Office held a hearing on [my petition](http://michaelweinberg.org/post/168650680970/expanding-the-rules-around-unlocking-3d-printers) for a rule to make it clear that unlocking 3D printers does not violate copyright law.  Specifically, the request is for a rule to make it clear that using consumables (filament, powder, whatever) that do not come from the company that made the printer does not violate copyright law.  Background on this process starts [here](http://michaelweinberg.org/post/168650680970/expanding-the-rules-around-unlocking-3d-printers).  You can watch the entire video of the proceeding here:
