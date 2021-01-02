@@ -1,5 +1,9 @@
-Control the appearance of the home page with index.html
+Control the appearance of the home page with index.html. 
+
+The CSS for the title and subhead on the hero image are in /_layouts/post-index.html (there is a comment at about line 24 flagging them)
 
 side stuff on the home page is /_data/navigation.yml
 
 the short 'about' in the side section is in /_config.yml
+
+
