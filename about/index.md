@@ -17,4 +17,6 @@ You can email me at <hello@michaelweinberg.org> and find me on twitter [@MWeinbe
 
 If you are curious, you too can have email address on your own domain thanks to [this fantastic and detailed guide](https://konklone.com/post/take-control-of-your-email-address) from [Eric Mill](https://konklone.com/).
 
-This site is running on Jekyll and hosted on Github. It used to run on tumblr.  Maybe someday it will again, although it is looking increasingly unlikely.
+This site is running on Jekyll and hosted on Github.  It used to run on tumblr.  Maybe someday it will again, although it is looking increasingly unlikely.
+
+The header image on the home page is a lithograph of [Billy Sunday by George Wesley Bellows](https://www.si.edu/object/billy-sunday:npg_NPG.74.69) from the Smithsonian's open access collection. 
