@@ -7,7 +7,7 @@ tags:
 - copyright
 - ml5js
 image:
-    feature: 
+    feature:
 ---
 Today the ml5.js team unveiled a proposal for a new license to impose ethical use requirements on their open source machine learning library.  The community announcement is [here](https://medium.com/ml5js/ml5-js-code-of-conduct-4eb8fcae1ef7). It is full of useful information about the context, purpose, and goals of the project so I encourage you to check it out. This post is intended to be a bit more focused on the license and license mechanisms themselves.
 
@@ -57,4 +57,6 @@ The second danger is simply that this exercise turns out to be a horrible idea. 
 
 ## Will This Work?
 
-Will this approach work? It is hard to say.  It is certainly something different.  The approach is much more restrictive than traditional open source licensing.  It also requires more administrative overhead to operate.  As of now, the ml5.js team believes that these costs are worth paying in order to make a strong commitment to ethical uses of the library.  The comment period is open now. If you disagree, we would love to hear from you in the [repo](https://github.com/ml5js/Code-of-Conduct), on [twitter](https://twitter.com/ml5js), on [Discord](https://discord.gg/eejKFhuakF), or via email at feedback@ml5js.org.  
+Will this approach work? It is hard to say.  It is certainly something different.  The approach is much more restrictive than traditional open source licensing.  It also requires more administrative overhead to operate.  As of now, the ml5.js team believes that these costs are worth paying in order to make a strong commitment to ethical uses of the library.  The comment period is open now. If you disagree, we would love to hear from you in the [repo](https://github.com/ml5js/Code-of-Conduct), on [twitter](https://twitter.com/ml5js), on [Discord](https://discord.gg/eejKFhuakF), or via email at feedback@ml5js.org.
+
+Oh, and one last thing. Huge thanks to the [Blue Oak Council](https://blueoakcouncil.org/) for their [model license](https://blueoakcouncil.org/license/1.0.0). Doing something like this is hard, and doing it in a way that the community understands is even harder.  Their easy-to-understand license formed the basis of the license we are using.  That being said, they do not endorse this idea and any problems that it creates are ours alone.  
