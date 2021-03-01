@@ -6,6 +6,8 @@ date: 2020-10-24 01:01:02
 tags:
 - opensourcehardware
 - OSHWA
+- NYU
+- whitepapers
 image:
      feature: OSHW_Weather_Report_2020_Cover_small.png
 

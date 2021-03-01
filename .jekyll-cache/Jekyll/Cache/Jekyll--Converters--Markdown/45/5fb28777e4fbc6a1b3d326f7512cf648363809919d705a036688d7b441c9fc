@@ -1,4 +1,4 @@
-I"�V<p>With the <a href="/blog/2020/10/23/oshwa-cert-api/">recent release</a> of the live <a href="https://certificationapi.oshwa.org/documentation">OSHWA Open Source Hardware Certification API</a>, I wanted to build a map that tracked the live distribution of certified open source hardware across the globe.  You can see the map <a href="/oshwa_certification_map/">here</a>.  You can see the code <a href="https://github.com/mwweinberg/oshwa_cert_map">here</a>. This post explains how it all works.</p>
+I"RW<p>With the <a href="/blog/2020/10/23/oshwa-cert-api/">recent release</a> of the live <a href="https://certificationapi.oshwa.org/documentation">OSHWA Open Source Hardware Certification API</a>, I wanted to build a map that tracked the live distribution of certified open source hardware across the globe.  You can see the map <a href="/oshwa_certification_map/">here</a>.  You can see the code <a href="https://github.com/mwweinberg/oshwa_cert_map">here</a>. This post explains how it all works.</p>
 
 <p>The map I made is called a <a href="https://en.wikipedia.org/wiki/Choropleth_map">choropleth</a>.  It uses color intensity to compare the number of pieces of certified hardware between countries.  I created it using <a href="https://leafletjs.com/">leaflet.js</a>. I chose leaflet mostly because I learned how to use it on a <a href="https://www.youtube.com/watch?v=nZaZ2dB6pow">Coding Train tutorial</a>.  That tutorial also taught me how to access APIs, which is another piece of this project.</p>
 
@@ -30,11 +30,11 @@
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Second, everything else in this code will happen in the place held by the <code class="highlighter-rouge">console.log(this.responseText);</code> in the example code. I think doing this causes everything to wait until the API data has been downloaded but I could be very wrong about that.</p>
+<p>Second, everything else in this code will happen in the place held by the <code class="language-plaintext highlighter-rouge">console.log(this.responseText);</code> in the example code. I think doing this causes everything to wait until the API data has been downloaded but I could be very wrong about that.</p>
 
 <h2 id="unite-the-jsons">Unite the JSONs</h2>
 
-<p>Once you have the API data you need to combine it with the GeoJSON for the world.  The first step is to create an object that contains the certified hardware count per country.  That function is called in the <code class="highlighter-rouge">var country_counter = countCountry(data);</code> line.  That calls the <code class="highlighter-rouge">countCountry()</code> function:</p>
+<p>Once you have the API data you need to combine it with the GeoJSON for the world.  The first step is to create an object that contains the certified hardware count per country.  That function is called in the <code class="language-plaintext highlighter-rouge">var country_counter = countCountry(data);</code> line.  That calls the <code class="language-plaintext highlighter-rouge">countCountry()</code> function:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">countCountry</span><span class="p">(</span><span class="nx">input_json</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//create a temporary dictionary in the function</span>
@@ -72,7 +72,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Once you have the <code class="highlighter-rouge">countCountry()</code> object, you can add it to the GeoJSON.  The <code class="highlighter-rouge">combineJSONs()</code> function adds the <code class="highlighter-rouge">HW_COUNT</code> feature to the GeoJSON. It uses what seems like a comically inefficient process for doing this, but that’s what some person on stack overflow suggested and it worked, so…..</p>
+<p>Once you have the <code class="language-plaintext highlighter-rouge">countCountry()</code> object, you can add it to the GeoJSON.  The <code class="language-plaintext highlighter-rouge">combineJSONs()</code> function adds the <code class="language-plaintext highlighter-rouge">HW_COUNT</code> feature to the GeoJSON. It uses what seems like a comically inefficient process for doing this, but that’s what some person on stack overflow suggested and it worked, so…..</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">unction</span> <span class="nx">combineJSONs</span><span class="p">(</span><span class="nx">country_list</span><span class="p">,</span> <span class="nx">geo_json</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
@@ -110,7 +110,7 @@
   <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Now you have a <code class="highlighter-rouge">combined_jsons</code> object that has all of the geographic information for the countries and the information about how many pieces of hardware is certified in each country.</p>
+<p>Now you have a <code class="language-plaintext highlighter-rouge">combined_jsons</code> object that has all of the geographic information for the countries and the information about how many pieces of hardware is certified in each country.</p>
 
 <h2 id="make-the-map">Make the map</h2>
 

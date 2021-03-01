@@ -7,6 +7,8 @@ tags:
 - openaccess
 - copyright
 - GLAM
+- NYU
+- whitepapers
 image:
      feature: glam3d_header.jpg
 

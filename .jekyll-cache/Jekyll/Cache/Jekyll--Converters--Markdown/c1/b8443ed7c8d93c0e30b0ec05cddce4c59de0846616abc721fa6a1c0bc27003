@@ -1,4 +1,4 @@
-I"-<p>By “pretty easy” I mean “even I can do it” - an exceedingly low bar.  It appears that the secret is <a href="https://kepler.gl/">kepler.gl</a>, New York City open data, and a little bit of python.  Click <a href="https://michaelweinberg.org/other_pages/movie_permit_map.html">here</a> to play around with my map yourself.</p>
+I"�<p>By “pretty easy” I mean “even I can do it” - an exceedingly low bar.  It appears that the secret is <a href="https://kepler.gl/">kepler.gl</a>, New York City open data, and a little bit of python.  Click <a href="https://michaelweinberg.org/other_pages/movie_permit_map.html">here</a> to play around with my map yourself.</p>
 
 <p>I have been wanting to try and do a neat map-based thing for a while but did not really have a good project to use as a hook.  That changed when I found out that New York City makes <a href="https://data.cityofnewyork.us/City-Government/Film-Permits/tg4x-b46p">film permit data</a> available as part of its (excellent) open data portal.  My neighborhood is always having streets closed off for shooting and I was curious how it compared to the rest of the city.</p>
 
@@ -14,28 +14,28 @@
 
 <p>in terms of more substantive issues, sometimes there were many locations associated with a single permit, so I decided to break the entries up by location.  This code breaks up multiple-address entries into individual entries:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addresses = list(row[6].split(',  '))
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addresses = list(row[6].split(',  '))
 </code></pre></div></div>
 
 <p>The for loop then works through each address to make it its own entry in the output file:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for address in addresses:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for address in addresses:
 </code></pre></div></div>
 
 <p>If there were multiple addresses there were also multiple zipcodes. I admit that I cheated here.  Instead of figuring out how to map the multiple zipcodes to the multiple addresses, I just picked the first zip code and used it for all of the addresses.  My hope was that it would be close enough:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip_split = list(row[13].split(', '))
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip_split = list(row[13].split(', '))
 first_zip = zip_split[0]
 </code></pre></div></div>
 
 <p>After playing with some test data I realized that at least 30% of the addresses I sent were not recognized by the geocoder.  Helpfully the geocoder returned some address in West Africa when it was confused, so it was easy to find the errors.  After playing around a bit I figured out that stripping the ‘and’ and ‘between’ from the addresses made the geocoder more accurate:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>address_no_between = address.replace('between', ' ')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>address_no_between = address.replace('between', ' ')
 address_fully_stripped = address_no_between.replace('and', ' ')
 </code></pre></div></div>
 
 <p>I also realized that the order of terms mattered for the geocoder.  Specifically, putting the street names at the end of the term seemed to help:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geocoder_entry = borough + ' New York City ' + first_zip + ' ' + address_fully_stripped
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geocoder_entry = borough + ' New York City ' + first_zip + ' ' + address_fully_stripped
 print("GC entry = " + geocoder_entry)
 
 
@@ -51,7 +51,7 @@ long = collection['features'][0]['center'][0]
 
 <p>That greatly reduced the number of errors from the geocoder, although it did not eliminate them.  In order to try and salvage something, if the geocoder returned a bad lat/long I resubmitted the query with just the first street name:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>short_geocoder_entry = borough + ' New York City ' + first_zip + ' ' + short_address
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>short_geocoder_entry = borough + ' New York City ' + first_zip + ' ' + short_address
 print("Short GC entry = " + short_geocoder_entry)
 response = geocoder.forward(short_geocoder_entry)
 counter += 1
