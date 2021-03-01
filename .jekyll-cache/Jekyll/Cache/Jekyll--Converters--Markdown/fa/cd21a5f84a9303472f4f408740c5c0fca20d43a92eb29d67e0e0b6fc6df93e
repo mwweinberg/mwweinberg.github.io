@@ -1,4 +1,4 @@
-I"Q�<p><em>Update 10/11/20: I did figure out how to use classes to automatically scale this to n lights! Updated post is <a href="/blog/2020/10/11/neopixel-firefly-classes/">here</a>.</em></p>
+I"R�<p><em>Update 10/11/20: I did figure out how to use classes to automatically scale this to n lights! Updated post is <a href="/blog/2020/10/11/neopixel-firefly-classes/">here</a>.</em></p>
 
 <p>This post is a walkthrough for having <a href="https://learn.adafruit.com/adafruit-neopixel-uberguide">neopixels</a> (individually addressable LEDs) flash in firefly patterns.  The script uses <a href="https://circuitpython.org/">circuitpython</a> and uses three flash patterns from a National Park Service <a href="https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm">website</a>.  It should be very easy to add additional patterns as you see fit.  The full script can be found <a href="https://github.com/mwweinberg/firefly/blob/master/firefly.py">here</a>.</p>
 
@@ -139,7 +139,7 @@
 </span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>At a high  level, it creates three functions (one for each type of firefly flash pattern) and then assigns that pattern to a light.  The patterns are based on timing, so it uses the <code class="highlighter-rouge">monotonic()</code> function to keep track of time.  There is not a real clock on microcontrollers, so <code class="highlighter-rouge">monotonic()</code> just counts up from the moment the board turns on.</p>
+<p>At a high  level, it creates three functions (one for each type of firefly flash pattern) and then assigns that pattern to a light.  The patterns are based on timing, so it uses the <code class="language-plaintext highlighter-rouge">monotonic()</code> function to keep track of time.  There is not a real clock on microcontrollers, so <code class="language-plaintext highlighter-rouge">monotonic()</code> just counts up from the moment the board turns on.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#https://www.nps.gov/grsm/learn/nature/firefly-flash-patterns.htm
 </span>
@@ -168,7 +168,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#create the neopixel. auto_write=True avoids having to push changes (at the cost of speed, which probably doesn't matter here)
 </span><span class="n">pixels</span> <span class="o">=</span> <span class="n">neopixel</span><span class="p">.</span><span class="n">NeoPixel</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">NEOPIXEL</span><span class="p">,</span> <span class="n">number_of_lights</span><span class="p">,</span> <span class="n">brightness</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">auto_write</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </code></pre></div></div>
-<p>This line initializes the neopixels. I developed this on an Adafruit circuit playground board, so you may need to change this line depending on your setup.  The other thing to point out here is that the <code class="highlighter-rouge">brightness</code> variable is set to <code class="highlighter-rouge">0.2</code>. Neopixels are bright, so I toned things down during development. You might want to make them brighter for your final installation.</p>
+<p>This line initializes the neopixels. I developed this on an Adafruit circuit playground board, so you may need to change this line depending on your setup.  The other thing to point out here is that the <code class="language-plaintext highlighter-rouge">brightness</code> variable is set to <code class="language-plaintext highlighter-rouge">0.2</code>. Neopixels are bright, so I toned things down during development. You might want to make them brighter for your final installation.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># automatically spins up the seed reset times for each light
 </span><span class="n">reset_time_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -181,7 +181,7 @@
     <span class="n">reset_time_dict</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">monotonic</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>This automatically sets the reset time for each light, by iterating based on the <code class="highlighter-rouge">number_of_lights</code> variable from above.</p>
+<p>This automatically sets the reset time for each light, by iterating based on the <code class="language-plaintext highlighter-rouge">number_of_lights</code> variable from above.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">reset_time_dict</span><span class="p">)</span>
 </code></pre></div></div>
@@ -222,19 +222,19 @@
     <span class="k">return</span> <span class="n">reset_time</span>
 </code></pre></div></div>
 
-<p>This is the first blinking function.  It takes two arguments. The <code class="highlighter-rouge">reset_time_input</code> is the counter start time.  The <code class="highlighter-rouge">light_number</code> is which neopixel it is controlling.</p>
+<p>This is the first blinking function.  It takes two arguments. The <code class="language-plaintext highlighter-rouge">reset_time_input</code> is the counter start time.  The <code class="language-plaintext highlighter-rouge">light_number</code> is which neopixel it is controlling.</p>
 
 <p>Without a real clock, all of the flash functions are controlled by a counter.  You can think of the counter starting at 0 for the first loop (it doesn’t actually start a 0 the first time, but ignore that for a minute).</p>
 
-<p><code class="highlighter-rouge">time_from_zero = time.monotonic() - reset_time_input</code> figures out how long it has been since the start of the counter.  In the example first loop, the <code class="highlighter-rouge">reset_time_input</code> would be 0.  If it has been 2 seconds since the counter started counting, the <code class="highlighter-rouge">time_from_zero</code> would equal 2.</p>
+<p><code class="language-plaintext highlighter-rouge">time_from_zero = time.monotonic() - reset_time_input</code> figures out how long it has been since the start of the counter.  In the example first loop, the <code class="language-plaintext highlighter-rouge">reset_time_input</code> would be 0.  If it has been 2 seconds since the counter started counting, the <code class="language-plaintext highlighter-rouge">time_from_zero</code> would equal 2.</p>
 
-<p>That value is then compared to a bunch of <code class="highlighter-rouge">if</code> statements that determine if the light is on or off.  In this first function, the light goes on if the <code class="highlighter-rouge">time_from_zero</code> is between 5 and 5.5 seconds, and between 15 and 15.5 seconds.  Because the default state of things is that the light is off, we only need <code class="highlighter-rouge">if</code> triggers for when the light needs to be on.</p>
+<p>That value is then compared to a bunch of <code class="language-plaintext highlighter-rouge">if</code> statements that determine if the light is on or off.  In this first function, the light goes on if the <code class="language-plaintext highlighter-rouge">time_from_zero</code> is between 5 and 5.5 seconds, and between 15 and 15.5 seconds.  Because the default state of things is that the light is off, we only need <code class="language-plaintext highlighter-rouge">if</code> triggers for when the light needs to be on.</p>
 
-<p>Once the <code class="highlighter-rouge">time_from_zero</code> exceeds 20 seconds, the counter resets.  That reset is based on the current time (<code class="highlighter-rouge">time.monotonic()</code>) with a bit of random variation (<code class="highlighter-rouge">random.uniform(-3, 3)</code>) so that the different lights are not all in sync (the <code class="highlighter-rouge">carolinus()</code> function does not include this random variation because the carolinus bugs flash in unison).</p>
+<p>Once the <code class="language-plaintext highlighter-rouge">time_from_zero</code> exceeds 20 seconds, the counter resets.  That reset is based on the current time (<code class="language-plaintext highlighter-rouge">time.monotonic()</code>) with a bit of random variation (<code class="language-plaintext highlighter-rouge">random.uniform(-3, 3)</code>) so that the different lights are not all in sync (the <code class="language-plaintext highlighter-rouge">carolinus()</code> function does not include this random variation because the carolinus bugs flash in unison).</p>
 
-<p>As soon as the cycle is complete, it returns a new <code class="highlighter-rouge">reset_time</code>.  Remember that there is only one counter on the board, and it just keeps counting up.  The first time through the cycle, <code class="highlighter-rouge">reset_time_input</code> might be 0. The second time through, the cycle ‘starts’ closer to 20.  Similarly, instead of being 2 the first time around, the <code class="highlighter-rouge">time.monotonic()</code> will be 22 the second time around.  The <code class="highlighter-rouge">time_from_zero</code> function normalizes all of this, because 2-0, 22-20, and 82-80 are all the same value.  That allows the function to keep working over time.</p>
+<p>As soon as the cycle is complete, it returns a new <code class="language-plaintext highlighter-rouge">reset_time</code>.  Remember that there is only one counter on the board, and it just keeps counting up.  The first time through the cycle, <code class="language-plaintext highlighter-rouge">reset_time_input</code> might be 0. The second time through, the cycle ‘starts’ closer to 20.  Similarly, instead of being 2 the first time around, the <code class="language-plaintext highlighter-rouge">time.monotonic()</code> will be 22 the second time around.  The <code class="language-plaintext highlighter-rouge">time_from_zero</code> function normalizes all of this, because 2-0, 22-20, and 82-80 are all the same value.  That allows the function to keep working over time.</p>
 
-<p>The <code class="highlighter-rouge">macdermotti()</code> and <code class="highlighter-rouge">carolinus()</code> functions work the same way. If you want to make a new function for a new pattern, just duplicate it, rename it, and change the if statements.</p>
+<p>The <code class="language-plaintext highlighter-rouge">macdermotti()</code> and <code class="language-plaintext highlighter-rouge">carolinus()</code> functions work the same way. If you want to make a new function for a new pattern, just duplicate it, rename it, and change the if statements.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
 
@@ -245,9 +245,9 @@
     <span class="n">reset_time_dict</span><span class="p">[</span><span class="s">"resetTime6"</span><span class="p">]</span> <span class="o">=</span> <span class="n">carolinus</span><span class="p">(</span><span class="n">reset_time_dict</span><span class="p">[</span><span class="s">"resetTime6"</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>Now that all of the functions work, this <code class="highlighter-rouge">while</code> loop will just keep running them forever.</p>
+<p>Now that all of the functions work, this <code class="language-plaintext highlighter-rouge">while</code> loop will just keep running them forever.</p>
 
-<p><code class="highlighter-rouge">reset_time_dict["resetTime2"]</code> starts with the reset time for light #2 that we automatically generated at the top of the script.  <code class="highlighter-rouge">brimleyi(reset_time_dict["resetTime2"], 2)</code> calls the <code class="highlighter-rouge">brimleyi()</code> function, using that reset time.  Because the end of the functions all return their ‘new’ reset time (even if it was not updated that cycle), the reset time in the dictionary will always be the one you want to work with.</p>
+<p><code class="language-plaintext highlighter-rouge">reset_time_dict["resetTime2"]</code> starts with the reset time for light #2 that we automatically generated at the top of the script.  <code class="language-plaintext highlighter-rouge">brimleyi(reset_time_dict["resetTime2"], 2)</code> calls the <code class="language-plaintext highlighter-rouge">brimleyi()</code> function, using that reset time.  Because the end of the functions all return their ‘new’ reset time (even if it was not updated that cycle), the reset time in the dictionary will always be the one you want to work with.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#briefly pauses the loop to avoid crashing the USB bus. Also makes it easier to see what is happening.
 </span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
