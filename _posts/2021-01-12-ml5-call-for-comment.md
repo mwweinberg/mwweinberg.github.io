@@ -9,6 +9,8 @@ tags:
 image:
     feature:
 ---
+*update May 10, 2021: ml5.js formally announced version 1.0 of the license and code of conduct. You can read the [launch post](https://medium.com/ml5js/a-new-code-of-conduct-and-license-for-ml5-js-6b0e4c109b76), [the license](https://github.com/ml5js/Code-of-Conduct/blob/main/LICENSE.md), and the Code of Conduct(https://github.com/ml5js/Code-of-Conduct). While a number of edits were made to the Code of Conduct during the review period, the final version of the licensing structure largely tracks what is described in this post.* 
+
 Today the ml5.js team unveiled a proposal for a new license to impose ethical use requirements on their open source machine learning library.  The community announcement is [here](https://medium.com/ml5js/ml5-js-code-of-conduct-4eb8fcae1ef7). It is full of useful information about the context, purpose, and goals of the project so I encourage you to check it out. This post is intended to be a bit more focused on the license and license mechanisms themselves.
 
 For context, [ml5.js](https://ml5js.org/) is a library that makes machine learning and artificial intelligence accessible to artists, creative coders and students.  It is so easy to use that it even allows me to access things like [style transfer](https://learn.ml5js.org/#/reference/style-transfer) and [body tracking](https://learn.ml5js.org/#/reference/posenet).
