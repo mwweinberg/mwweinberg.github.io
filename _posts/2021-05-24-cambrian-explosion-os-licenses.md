@@ -48,7 +48,7 @@ It could be.  But I don’t really think so.  The thing about lawyers (as a grou
 
 That is part of the reason why lawyers like today’s conventional wisdom.  The canonical set of open source licenses have more or less worked for decades.  It is unlikely that they will explode, and it is even less likely that they will explode in the face of the lawyer who uses them on any given project.  In contrast, any lawyer who writes their own license is setting themselves up for a period of anxiety, waiting to discover what they missed or how things will go wrong.
 
-Of course, some lawyers do think it is fun to cook up new open licenses.  And maybe this post is a call for them to do more of it. But, on balance and as a whole, introducing new licenses into the world of open source will probably cause open source lawyers more anxiety and joy.
+Of course, some lawyers do think it is fun to cook up new open licenses.  And maybe this post is a call for them to do more of it. But, on balance and as a whole, introducing new licenses into the world of open source will probably cause open source lawyers more anxiety than joy.
 
 I think that anxiety is probably worth it.  But that will be far from a universally held position.
 
