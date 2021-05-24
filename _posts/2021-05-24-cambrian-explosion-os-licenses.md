@@ -53,4 +53,4 @@ Of course, some lawyers do think it is fun to cook up new open licenses.  And ma
 I think that anxiety is probably worth it.  But that will be far from a universally held position.
 
 
-*Feature image: Isogelus gigas Dekay (you know, trilobites) from the [Smithsonian Open Access collection](https://www.si.edu/object/isotelus-gigas-dekay:nmnhpaleobiology_3021058)*
+*Feature image: Isogelus gigas Dekay (you know, trilobites. as a vivid illustration of the cambrian explosion. NOT as a suggestion that people who insist on only using the classic OSI approved licenses are stuck in the past. I used those licenses too! They are great!) from the [Smithsonian Open Access collection](https://www.si.edu/object/isotelus-gigas-dekay:nmnhpaleobiology_3021058)*
