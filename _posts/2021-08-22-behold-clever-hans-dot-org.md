@@ -24,5 +24,5 @@ Finally, I started another run at it over the summer.  I purchased Emanuele Fero
 
 [CleverHans.org](https://cleverhans.org/) is a dumb site that does not do very much.  It certainly does not look like something that took seven years to build.  Fortunately for me, it is just dumb enough and does just little enough that I always felt like a working version was just around the corner. In its way, it provided just enough motivation to get me to learn a bit more programming and stick with it just a few minutes longer.
 
-And now the world does have a digital version of Clever Hans. On the internet. What a world.
+And now the world does have a digital version of Clever Hans. On the internet. [What a world](https://www.youtube.com/watch?v=iJ__KkzH1U8).
 
