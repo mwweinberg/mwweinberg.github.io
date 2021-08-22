@@ -12,7 +12,7 @@ image:
 
 On November 13, 2014 I purchased the domain [cleverhans.org](https://cleverhans.org/) because I decided that the world needed a digital version of [Clever Hans](https://en.wikipedia.org/wiki/Clever_Hans).  
 
-At the time, I did not know how to program at all.  I had used [logo](https://en.wikipedia.org/wiki/Logo_(programming_language)) in elementary school and taken a class in [BASIC](https://en.wikipedia.org/wiki/BASIC) in middle school. I also used [markdown](https://en.wikipedia.org/wiki/Markdown) to write posts for the Public Knowledge blog.  Nonetheless, the world needed digital Clever Hans and CleverHans.org was going to be my excuse to learn how to do it.
+At the time, I did not know how to program in any meaningful sense.  I had used [logo](https://en.wikipedia.org/wiki/Logo_(programming_language)) in elementary school and taken a class in [BASIC](https://en.wikipedia.org/wiki/BASIC) in middle school. I also used [markdown](https://en.wikipedia.org/wiki/Markdown) to write posts for the Public Knowledge blog.  Nonetheless, the world needed digital Clever Hans and CleverHans.org was going to be my excuse to learn how to do it.
 
 Almost seven years later, today I finally figured out how to put a functional [CleverHans.org](https://cleverhans.org/) site on the internet.  It took longer than I thought.
 
