@@ -95,4 +95,6 @@ In each of these communities it is easy - and tempting - to try and push these q
 
 This type of doctrinaire approach tends to work well until it doesn’t.  If open continues to succeed and grow, open communities need mechanisms to incorporate the broader set of people who will make them up.  It is not reasonable to assume that this new universe of open enthusiasts will come with exactly the same values as the founding cohort, or to declare that the concerns that they bring to the community should be dismissed out of hand.  
 
-Instead, open communities should begin prioritizing developing tools and processes to manage internal dissent about the limits of openness in ways that feel legitimate to everyone involved.  This does not mean that open communities need to accept all of the concerns or accommodate them.  It does, however, mean that they need better ways to give them a fair hearing.        
+Instead, open communities should begin prioritizing developing tools and processes to manage internal dissent about the limits of openness in ways that feel legitimate to everyone involved.  This does not mean that open communities need to accept all of the concerns or accommodate them.  It does, however, mean that they need better ways to give them a fair hearing.   
+
+*Header image: [The leaders of two armies conversing, their respective troops and camps on either side; above, Minerva observes from her chariot; set design from 'Il Pomo D'Oro'](https://www.metmuseum.org/art/collection/search/700486) from the Met Open Access collection*      
