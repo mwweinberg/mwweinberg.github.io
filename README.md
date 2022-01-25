@@ -1,3 +1,9 @@
+# Licensing Clarification
+
+The original HPSTR Jekyll Theme is licensed under the MIT license. Those files, and any modifications that I make to those files, continue to be licensed under the MIT license.
+
+The content of this blog (posts, media, pdfs, etc.) are all licensed under their respective licenses. To the extent that I have a copyright in the content it is generally licensed under a CC BY-SA 4.0, although the specific licensing on any individual thing carries.  
+
 # HPSTR Jekyll Theme
 
 They say three times the charm, so here is another free responsive Jekyll theme for you. I've learned a ton since open sourcing [my first two themes](https://mademistakes.com/work/jekyll-themes/), and wanted to try a few new things this time around. If you've used my previous themes most of this should be familiar territory.
