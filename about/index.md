@@ -9,7 +9,7 @@ modified: 2019-01-05
 share: false
 ---
 
-Hi.  I'm Michael.  I am the Executive Director of the [Engelberg Center on Innovation Law and Policy at NYU Law](http://www.law.nyu.edu/centers/engelberg). I'm also the President of the Board of the [Open Source Hardware Association](https://www.oshwa.org/).   
+Hi.  I'm Michael.  I am the Executive Director of the [Engelberg Center on Innovation Law and Policy at NYU Law](http://www.law.nyu.edu/centers/engelberg). I'm also the President of the Board of the [Open Source Hardware Association](https://www.oshwa.org/) and a co-creator of [Everybody is Gone](https://www.everybodyisgone.org/).   
 
 I used to do 3D printing and legal things at [Shapeways](https://www.shapeways.com/).  Before that I tried to make policy, people, and technology work together better in the public interest at [Public Knowledge](https://www.publicknowledge.org/).
 
@@ -19,4 +19,4 @@ If you are curious, you too can have email address on your own domain thanks to 
 
 This site is running on Jekyll and hosted on Github.  It used to run on tumblr.  Maybe someday it will again, although it is looking increasingly unlikely.
 
-The header image on the home page is a lithograph of [Billy Sunday by George Wesley Bellows](https://www.si.edu/object/billy-sunday:npg_NPG.74.69) from the Smithsonian's open access collection. 
+The header image on the home page is a lithograph of [Billy Sunday by George Wesley Bellows](https://www.si.edu/object/billy-sunday:npg_NPG.74.69) from the Smithsonian's open access collection.
