@@ -29,7 +29,7 @@ In order to make this happen I needed:
 - 1 [cable to](https://www.adafruit.com/product/4210) connect them
 - 1 USB C cable to transfer data/power it
 - 1 power block that matches the USB C cable
-- 1 3D printed case (optional)
+- 1 [3D printed case](https://www.thingiverse.com/thing:6145354) (optional)
 
 The process is pretty straightforward. Every few minutes, the board checks the PM2.5 level. It then changes the LEDs at the top of the FunHouse accordintly, displays the number on the screen, and uploads the data to an Adafruit IO dashboard. In theory, it should also pull the local AQI levels and update the LEDs and screen accordingly. However, as described below, that's not working right now. For the time being I've hard coded a placeholder AQI of 20.
 
