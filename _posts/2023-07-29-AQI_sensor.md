@@ -1,7 +1,7 @@
 ---
 layout: post
 category: blog
-title: AQI Sensor WIP
+title: AQI Sensor
 date: 2023-07-29
 tags:
 - projects
@@ -17,7 +17,7 @@ The air quality in NYC has been . . . not great this summer. This presents and o
 Wow'd by [Marty McGuire](https://martymcgui.re/)'s ability to check the air quaility of his apartment on his phone, I decided I would copy him by building a worse implementation of his setup.  The features of my version of this setup include:
 
 - Check the PM2.5 levels in my apartment
-- Check the local AQI (note: this isn't actully working yet for reasons explained below)
+- Check the local AQI 
 - Display the PM2.5 and AQI levels with LEDs
 - Display the PM2.5 and AQI levels on a screen
 - Chart the curent and historical PM2.5 levels on a website that I can access with my phone outside the house
@@ -31,17 +31,13 @@ In order to make this happen I needed:
 - 1 power block that matches the USB C cable
 - 1 [3D printed case](https://www.thingiverse.com/thing:6145354) (optional)
 
-The process is pretty straightforward. Every few minutes, the board checks the PM2.5 level. It then changes the LEDs at the top of the FunHouse accordintly, displays the number on the screen, and uploads the data to an Adafruit IO dashboard. In theory, it should also pull the local AQI levels and update the LEDs and screen accordingly. However, as described below, that's not working right now. For the time being I've hard coded a placeholder AQI of 20.
+The process is pretty straightforward. Every few minutes, the board checks the PM2.5 level. It then changes the LEDs at the top of the FunHouse accordintly, displays the number on the screen, and uploads the data to an Adafruit IO dashboard. At the same time, it also pulls the local AQI levels from the AQI API and updates the LEDs and screen accordingly. 
 
 The entire script is available in [this repo](https://github.com/mwweinberg/AQI_sensor).  In addition to the script you will need:
 
 - The library files, which are also in the repo (make sure everything in the /lib folder in the repo is in the /lib folder on the board)
 - A secrets.py file to hold your wifi and Adafruit IO credentials. You can learn how to create that [here](https://learn.adafruit.com/adafruit-funhouse/circuitpython-internet-test).
-- A seperate keys.py file. This is for the AQI API. I'm sure there's a way to incorporate this into the secrets.py file, but I couldn't quite figure out the syntax.  In any event, the entire contents of the file is `AQI_URL = "the_url_with_your_api_key"`.
-
-That keys.py file will only be relevant if the AQI part of this ever works. You can create your URL by playing around with the [AirNow API](https://docs.airnowapi.org/).
-
-As of this writing, there seems to be a problem where uploading data to Adafruit IO creates some sort of conflict with downloading the data from the AirNow API.  I've opened an [issue](https://github.com/adafruit/Adafruit_CircuitPython_Requests/issues/139) in the CircuitPython Requests repo. Maybe by the time you read this it has been resolved. In the meantime, I decided to prioritize the online dashboard over getting local AQI info.
+- A seperate keys.py file. This is for the AQI API. I'm sure there's a way to incorporate this into the secrets.py file, but I couldn't quite figure out the syntax.  In any event, the entire contents of the file is `AQI_URL = "the_url_with_your_api_key"`.  You can create your URL by playing around with the [AirNow API](https://docs.airnowapi.org/).
 
 ## The Code
 
@@ -73,7 +69,7 @@ reset_pin = None
 funhouse = FunHouse(default_bg=None)
 ```
 
-The next chunk creates a few more objects, turns on wifi, and sets up variables for the AQI download.
+The next chunk creates a few more objects, turns on wifi, and sets up variables for the AQI download. It uses the existing funhouse network elements to set up the requests object.
 
 ```
 # Create library object, use 'slow' 100KHz frequency!
@@ -92,7 +88,7 @@ print("wifi connected")
 
 #these variables sets up the requests
 pool = socketpool.SocketPool(wifi.radio)
-requests = requests.Session(pool, ssl.create_default_context())
+requests = funhouse.network._wifi.requests
 ```
 
 These are the variables for the various sensor readings.
@@ -166,20 +162,22 @@ Then it pushes the PM2.5, temp, and humidity data to Adafruit IO.  The temp and 
         print("error uploading data, moving on")
 ```
 
-This mostly commented out section is the part that is supposed to download the AQI data from the API.  The part that actually reads the target URL from keys.py is uncommented because I wanted to make sure that pipeline still works.  The `currentAQI = 20` line is just a hard coded placeholder value. If I ever fix the data download, I will delete that line.
+This section downloads the AQI data from the API. It reads the target URL from the keys.py file, downloads the payload, parses the json, and assigns the AQI value to a new variable. The AQI API website is not the most user friendly UX in the world, but I did end up narrowing my query down to a single monitoring station. AQI will be set to 0 if there is an error, which will serve as a signal that something is wrong. 
 
 ```
     # get remote AQI data
     # #https://learn.adafruit.com/adafruit-funhouse/getting-the-date-time   
     target_URL = keys.AQI_URL
-    # print(target_URL)
-    # pool = socketpool.SocketPool(wifi.radio)
     
-    #response = requests.get(target_URL)
-    #print(response)
-    # jsonResponse = response.json()
-    # currentAQI = jsonResponse[0]["AQI"]
-    currentAQI = 20
+    try:
+        response = requests.get(target_URL, timeout = 10)
+        #print(response)
+        jsonResponse = response.json()
+        print(jsonResponse[0]["AQI"])
+        currentAQI = jsonResponse[0]["AQI"]
+    except:
+        currentAQI = 0
+        print('request failed')
 ```
 
 The next section sets the text on the display. The labels are just one line each to set the text.
