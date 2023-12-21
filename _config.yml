@@ -89,3 +89,10 @@ exclude:
   - package.json
   - spec
   - tmp
+
+footer:
+  links:
+    - label: "Mastodon"
+      icon: "fab fa-fw fa-mastodon"
+      url: https://fediverseinstance/@profile
+      rel: "me"
