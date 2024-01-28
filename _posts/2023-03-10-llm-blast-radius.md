@@ -4,6 +4,7 @@ category: blog
 title: Maybe LLMs Won’t Raise 230 Questions? 
 date: 2023-03-10
 tags:
+- ai
 
 image:
      feature: wjb_judge.png
