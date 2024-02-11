@@ -1,8 +1,10 @@
-I"O!<p>The brewing dispute over a (purportedly - more on that below) AI-generated George Carlin standup special is starting to feel like another step in the long tradition of rightsholders claiming that normal activity needs their permission when done with computers.</p>
+I""<p>The brewing dispute over a (purportedly - more on that below) AI-generated George Carlin standup special is starting to feel like another step in the long tradition of rightsholders claiming that normal activity needs their permission when done with computers.</p>
 
-<p>Computers operate by making copies, and copies are controlled by copyright law.  As a result, more or less since the dawn of popular computing, rightsholders have attempted to use those copies to extend their control by <a href="https://mitpress.mit.edu/9780262535243/the-end-of-ownership/">eliminating the rights of others</a>.  While you can read a physical book without caring what the publisher thinks, publishers insist that reading an ebook with computer needs a license because ereader software loads the file by making copies.  Similarly, although record labels can’t control the sale of used records or CDs, they managed to <a href="https://en.wikipedia.org/wiki/Capitol_Records,_LLC_v._ReDigi_Inc.">sue the concept of selling used music with computer out of existence</a>.</p>
+<p>Computers operate by making copies, and copies are controlled by copyright law.  As a result, more or less since the dawn of popular computing, rightsholders have attempted to use those copies to extend their control by <a href="https://mitpress.mit.edu/9780262535243/the-end-of-ownership/">eliminating the rights of others</a>.</p>
 
-<p>In this case, while impressions have probably existed since there was more than one human, the Carlin estate appears to be claiming that “impression with computer” needs special permission from them.</p>
+<p>While you can read a physical book without caring what the publisher thinks, publishers insist that reading an ebook with computer needs a license because ereader software loads the file by making copies.  Similarly, although record labels can’t control the sale of used records or CDs, they managed to <a href="https://en.wikipedia.org/wiki/Capitol_Records,_LLC_v._ReDigi_Inc.">sue the concept of selling used music with computer out of existence</a>.</p>
+
+<p>In this case, although impressions have probably existed since there was more than one human, the Carlin estate appears to be claiming that “impression with computer” needs special permission from them.</p>
 
 <h2 id="the-carlin-video">The Carlin Video</h2>
 
@@ -14,8 +16,9 @@
 
 <p>While the AI packaging clearly drove discussion around the video, if you step back for a minute it really is just an impression of Carlin. This impression uses computers, but I’m not convinced that changes (or should change) the fundamental reality of the activity.  Generally speaking, people don’t get veto rights over their impersonators.</p>
 
-<p>Furthermore, if an intriguing article by <a href="https://arstechnica.com/ai/2024/01/did-an-ai-write-that-hour-long-george-carlin-special-im-not-convinced/">Kyle Orland in Ars Technica</a> is correct, it may be more than “basically just an impression.”  It might just be “an impression.”<br />
-Orland’s take has subsequently been <a href="https://www.nytimes.com/2024/01/26/arts/carlin-lawsuit-ai-podcast-copyright.html">confirmed by the Dudsey team</a> to the New York Times (“‘It’s a fictional podcast character created by two human beings, Will Sasso and Chad Kultgen,’ Del wrote in an email. ‘The YouTube video ‘I’m Glad I’m Dead’ was completely written by Chad Kultgen.’”), although the same article reports that the Carlin estate continues to be skeptical of the video’s origin.</p>
+<p>Furthermore, if an intriguing article by <a href="https://arstechnica.com/ai/2024/01/did-an-ai-write-that-hour-long-george-carlin-special-im-not-convinced/">Kyle Orland in Ars Technica</a> is correct, it may be more than “basically just an impression.”  It might just be “an impression.”</p>
+
+<p>Orland’s take has subsequently been <a href="https://www.nytimes.com/2024/01/26/arts/carlin-lawsuit-ai-podcast-copyright.html">confirmed by the Dudsey team</a> to the New York Times (“‘It’s a fictional podcast character created by two human beings, Will Sasso and Chad Kultgen,’ Del wrote in an email. ‘The YouTube video ‘I’m Glad I’m Dead’ was completely written by Chad Kultgen.’”), although the same article reports that the Carlin estate continues to be skeptical of the video’s origin (which makes sense because, somewhat ridiculously, the viability of their entire claim may turn on the distinction).</p>
 
 <p>Orland digs into the Dudsey team and their podcast to provide facially compelling evidence that the content of the special is just a regular old impersonation of Carlin.  He even pulls what he describes as an “if I did it” quote from Dudsey podcast that accompanied the video describing how the jokes “could” have been created without sophisticated AI:</p>
 <blockquote>
@@ -48,7 +51,9 @@ Orland’s take has subsequently been <a href="https://www.nytimes.com/2024/01/2
 
 <p>The Carlin estate <a href="https://arstechnica.com/ai/2024/01/george-carlins-heirs-sue-comedy-podcast-over-ai-generated-impression/">lawsuit</a> includes a lot of rhetoric against the video (“Defendants must be held accountable for adding new, fake content to the canon of work associated with Carlin without his permission (or that of his estate).”) and claims of harm from Carlin’s daughter Kelly (“My dad spent a lifetime perfecting his craft from his very human life, brain, and imagination. No machine will ever replicate his genius.”) that could be applied just as easily to any Carlin impression.</p>
 
-<p>It also includes claims of violations of California’s Right of Publicity statutes, as well as copyright infringement.  While I think this discussion around copyright, AI training, and AI output is super interesting, for the purposes of this post the important thing is that the lawsuit contains the copyright claim at all.</p>
+<p>The suit also includes claims of violations of California’s Right of Publicity statutes, as well as copyright infringement.</p>
+
+<p>While I think this discussion around copyright, AI training, and AI output is super interesting, I’m not going to be into them in this post. For the purposes of this post, the important thing is that the lawsuit contains the copyright claim at all.</p>
 
 <h2 id="impression-with-computer">Impression with Computer</h2>
 
