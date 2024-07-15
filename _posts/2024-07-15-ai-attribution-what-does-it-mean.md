@@ -105,7 +105,7 @@ To give another illustration of how long and recursive these documents can be, w
 
 ![screenshot of license attribution text crediting 'Ty Coon, President of Vice' dated 1 April 1989](/images/ty_coon_license.png)
 
-How important is the attribution requirement to Ty Coon, President of Vice and creator of some component of my printer driver update utility? Hard to say.
+~~How important is the attribution requirement to Ty Coon, President of Vice and creator of some component of my printer driver update utility? Hard to say.~~ *update 7/15/24: as pointed out by [Luis Villa on mastodon](https://mastodon.social/deck/@luis_in_brief@social.coop/112792571975368417), Ty Coon is in the [sample attribution statement at the bottom of earlier versions of the GPL](https://www.gnu.org/licenses/old-licenses/gpl-1.0.en.html).  This [occasionally creates confusion](https://github.com/qbittorrent/qBittorrent/issues/7749) outside of this blog. The one snippet of the code I saw when using the utility was not even the (fake) name of one of its many contributors - it was just the end of the appendix to the license they used, pushing their actual name outside of my terminal window.*      
 
 Given this history, would it be productive to import this practice into training AI models?  I’m skeptical.  
 
