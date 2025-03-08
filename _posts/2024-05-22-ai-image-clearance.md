@@ -2,7 +2,7 @@
 layout: post
 category: blog
 title: Clearing Rights for a 'Non-Infringing' Collection of AI Training Media is Hard
-date: 2024-05-22
+date: 2024-03-08
 tags:
 - ai
 - copyright
