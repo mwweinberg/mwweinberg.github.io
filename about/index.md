@@ -9,7 +9,7 @@ modified: 2024-01-18
 share: false
 ---
 
-Hi.  I'm Michael.  I am the Executive Director of the [Engelberg Center on Innovation Law and Policy at NYU Law](http://www.law.nyu.edu/centers/engelberg). I'm also a board member of the [Open Source Hardware Association](https://www.oshwa.org/) (where I was Board President for a while), Co-Director of the [GLAM-E Lab](https://www.glamelab.org/), and a co-creator of [Everybody is Gone](https://www.everybodyisgone.org/).   
+Hi.  I'm Michael.  I am the Executive Director of the [Engelberg Center on Innovation Law and Policy at NYU Law](http://www.law.nyu.edu/centers/engelberg). I'm also a board member of the [Open Source Hardware Association](https://www.oshwa.org/) (where I was Board President for a while), Co-Director of the [GLAM-E Lab](https://www.glamelab.org/), and a co-creator of [Everybody is Gone](https://www.everybodyisgone.org/).  I split time between Berlin and NYC. 
 
 I used to do 3D printing and legal things at [Shapeways](https://www.shapeways.com/).  Before that I tried to make policy, people, and technology work together better in the public interest at [Public Knowledge](https://www.publicknowledge.org/).
 
