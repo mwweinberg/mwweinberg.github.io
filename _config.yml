@@ -14,7 +14,7 @@ owner:
   bio:            "Executive Director of NYU's Engelberg Center for Innovation Law and Policy. Board Member at the Open Source Hardware Association. Maker of poorly made things."
   email:          hello@michaelweinberg.org
   # Social networking links used in footer. Update and remove as you like.
-  twitter: MWeinberg2D
+  #twitter: MWeinberg2D
   facebook:
   github: MWWeinberg
   stackexchange:
@@ -22,7 +22,6 @@ owner:
   instagram:
   flickr:
   tumblr:
-  mastodon: mweinberg
   bluesky: michaelweinberg.org
   # google plus id, include the '+', eg +mmistakes
   google_plus:
