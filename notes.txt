@@ -6,4 +6,4 @@ side stuff on the home page is /_data/navigation.yml
 
 the short 'about' in the side section is in /_config.yml
 
-editing the sidebar for social involves editing both _includes/navigation.html and _config.yml
+editing the sidebar to add a social service involves editing both _includes/navigation.html and _config.yml
