@@ -65,11 +65,11 @@ The reciprocity in S is strong because it extends to any hardware that incorpora
 
 ##  More Information
 
-This blog post is short and just skims the surface of these licenses.  If you want more detail, CERN itself has a great [rationale document](https://gitlab.com/ohwr/project/cernohl/-/wikis/uploads/0be6f561d2b4a686c5765c74be32daf9/CERN_OHL_rationale.pdf) explaining why they created this version of the licenses, and [FAQ](https://gitlab.com/ohwr/project/cernohl/-/wikis/faq) related to them.  There are also user guides for each license.
+This blog post is short and just skims the surface of these licenses.  If you want more detail, CERN itself has a great [rationale document](https://gitlab.com/ohwr/project/cernohl/-/wikis/uploads/0be6f561d2b4a686c5765c74be32daf9/CERN_OHL_rationale.pdf) explaining why they created this version of the licenses, and [FAQ](https://gitlab.com/ohwr/project/cernohl/-/wikis/faq) related to them.  There are also user guides for each license, and a separate [best practices document](https://ospo.docs.cern.ch/recommendations/hw-best-practices/) from their Open Source Program Office.
 
 [ChooseALicense.com](https://choosealicense.com/) also has pages for the [P](https://choosealicense.com/licenses/cern-ohl-p-2.0/), [W](https://choosealicense.com/licenses/cern-ohl-w-2.0/), and [S](https://choosealicense.com/licenses/cern-ohl-s-2.0/) licenses.
 
-And, of course, OSHWA has a whole [suite of materials](https://certification.oshwa.org/process/hardware.html) about how to think about licensing and open source hardware (click on the “licensing” tab).
+And, of course, OSHWA has a whole [suite of materials](https://certification.oshwa.org/process/hardware.html) about how to think about licensing and open source hardware (click on the “licensing” tab), as well as a [best practices document](https://oshwa.org/resources/sharing-best-practices/).
 
 Finally, you can just [read the licenses themselves](https://gitlab.com/ohwr/project/cernohl/-/wikis/Documents/CERN-OHL-version-2).
 
