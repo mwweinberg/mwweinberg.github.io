@@ -1,4 +1,4 @@
-I"`<p>Trying to decide which open hardware license to use? Not super interested in actually reading the text of licenses?  You have come to the right place.  There are a bunch of caveats at the bottom of this post, but let’s get to the heart of things.</p>
+I"a<p>Trying to decide which open hardware license to use? Not super interested in actually reading the text of licenses?  You have come to the right place.  There are a bunch of caveats at the bottom of this post, but let’s get to the heart of things.</p>
 
 <h2 id="you-probably-want-to-use-a-cern-license">You Probably Want to Use a CERN License</h2>
 
@@ -56,11 +56,11 @@
 
 <h2 id="more-information">More Information</h2>
 
-<p>This blog post is short and just skims the surface of these licenses.  If you want more detail, CERN itself has a great <a href="https://gitlab.com/ohwr/project/cernohl/-/wikis/uploads/0be6f561d2b4a686c5765c74be32daf9/CERN_OHL_rationale.pdf">rationale document</a> explaining why they created this version of the licenses, and <a href="https://gitlab.com/ohwr/project/cernohl/-/wikis/faq">FAQ</a> related to them.  There are also user guides for each license.</p>
+<p>This blog post is short and just skims the surface of these licenses.  If you want more detail, CERN itself has a great <a href="https://gitlab.com/ohwr/project/cernohl/-/wikis/uploads/0be6f561d2b4a686c5765c74be32daf9/CERN_OHL_rationale.pdf">rationale document</a> explaining why they created this version of the licenses, and <a href="https://gitlab.com/ohwr/project/cernohl/-/wikis/faq">FAQ</a> related to them.  There are also user guides for each license, and a separate <a href="https://ospo.docs.cern.ch/recommendations/hw-best-practices/">best practices document</a> from their Open Source Program Office.</p>
 
 <p><a href="https://choosealicense.com/">ChooseALicense.com</a> also has pages for the <a href="https://choosealicense.com/licenses/cern-ohl-p-2.0/">P</a>, <a href="https://choosealicense.com/licenses/cern-ohl-w-2.0/">W</a>, and <a href="https://choosealicense.com/licenses/cern-ohl-s-2.0/">S</a> licenses.</p>
 
-<p>And, of course, OSHWA has a whole <a href="https://certification.oshwa.org/process/hardware.html">suite of materials</a> about how to think about licensing and open source hardware (click on the “licensing” tab).</p>
+<p>And, of course, OSHWA has a whole <a href="https://certification.oshwa.org/process/hardware.html">suite of materials</a> about how to think about licensing and open source hardware (click on the “licensing” tab), as well as a <a href="https://oshwa.org/resources/sharing-best-practices/">best practices document</a>.</p>
 
 <p>Finally, you can just <a href="https://gitlab.com/ohwr/project/cernohl/-/wikis/Documents/CERN-OHL-version-2">read the licenses themselves</a>.</p>
 
