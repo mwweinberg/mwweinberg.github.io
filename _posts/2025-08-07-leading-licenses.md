@@ -2,7 +2,7 @@
 layout: post
 category: blog
 title: The Most Popular Open Source Hardware Licenses (2016-2024)
-date: 2025-11-11
+date: 2025-10-05
 tags:
 - copyright
 - opensourcehardware
@@ -13,7 +13,7 @@ image:
 
 What are the most popular open source hardware licenses? How has that popularity changed over time? Is there anything to be learned from the ups and downs of various licenses? 
 
-My modern mind, like yours, had these [three questions](https://youtu.be/DQaF4YXCXsc?feature=shared&t=20). Fortunately, the OSHWA [Open Source Hardware Certification API](https://certificationapi.oshwa.org/documentation) makes it possible to start answering them.  This post has leaderboards for all of the licenses used for certified hardware, as well as hardware, software, and documentation specific leaderboards.  I'm not sure if there is a revelatory take away from them right now, but the leaderboards may be helpful in the future.
+My modern mind, like yours, had these [three questions](https://youtu.be/DQaF4YXCXsc?feature=shared&t=20). Fortunately, it is [Open Hardware Month](https://ohm.oshwa.org/) and the OSHWA [Open Source Hardware Certification API](https://certificationapi.oshwa.org/documentation) makes it possible to start answering them.  This post has leaderboards for all of the licenses used for certified hardware, as well as hardware, software, and documentation specific leaderboards.  I'm not sure if there is a revelatory take away from them right now, but the leaderboards may be helpful in the future.
 
 If you don't want to deal with that API, you can find the raw data from this post (and some tools for working with them) in [this repo]().
 
@@ -55,8 +55,103 @@ Finally, the act of compiling data for this post made me realize that OSHWA did 
 This first group aggregates all of the licenses used across all categories (hardware, software, and documentation).  This aggregation makes it more likely that licenses popular with creators who pick one license for all three components will be at the top. Historically, these have tended to be well known open source software and Creative Commons licenses. However, we are seeing the persistent growth of the CERN licenses.
 
 ## All Licenses 2024
+
+| Header1 | Header2 | Header3 |
+|:--------|:-------:|--------:|
+| cell1   | cell2   | cell3   |
+| cell4   | cell5   | cell6   |
+|-----------------------------|
+| cell1   | cell2   | cell3   |
+| cell4   | cell5   | cell6   |
+|=============================|
+| Foot1   | Foot2   | Foot3   |
+
+
+## All Licenses 2025
+
+| License | Total | Rank | Previous Rank | 
+|------:|:-----:|:----:|:-----:|
+| MIT | 85 | 1 | 3 &#9650; |
+| CC-BY-SA-4.0 | 83 | 2 | 1 &#9660; |
+| GPL-3.0-or-later | 74 | 3 | 4 &#9650; |
+| CERN-OHL-S-2.0 | 70 | 4 | 5 &#9650; |
+| Other | 68 | 5 | 2 &#9660; |
+| CERN-OHL-P-2.0 | 50 | 6 | 9 &#9650; |
+| CC BY-SA | 48 | 7 | 6 &#9660; |
+| CC-BY-4.0 | 40 | 8 | 8 |
+| No software | 33 | 9 | 7 &#9660; |
+| CERN-OHL-W-2.0 | 25 | 10 | 11 &#9650; |
+| GPL-3.0-only | 24 | 11 | 10 &#9660; |
+| GPL | 18 | 12 | 12 |
+| Apache | 7 | 13 | 15 &#9650; |
+| CERN | 4 | 14 | 18 &#9650; |
+| CC BY | 3 | 15 | 17 &#9650; |
+| LGPL | 3 | 16 | 19 &#9650; |
+| CC 0 | 3 | 17 | 21 &#9650; |
+| CC0-1.0 | 3 | 18 | 14 &#9660; |
+| TAPR | 2 | 19 | 16 &#9660; |
+| CERN-OHL-1.2 | 1 | 20 | 13 &#9660; |
+| Solderpad | 1 | 21 |  |
+
+## All Licenses 2024
+
+| License | Total | Rank | Previous Rank | 
+|------:|:-----:|:----:|:-----:|
+| CC-BY-SA-4.0 | 237 | 1 | 7 &#9650; |
+| Other | 108 | 2 | 3 &#9650; |
+| MIT | 103 | 3 | 2 &#9660; |
+| GPL-3.0-or-later | 100 | 4 | 10 &#9650; |
+| CERN-OHL-S-2.0 | 90 | 5 | 9 &#9650; |
+| CC BY-SA | 90 | 6 | 1 &#9660; |
+| No software | 51 | 7 | 5 &#9660; |
+| CC-BY-4.0 | 31 | 8 | 11 &#9650; |
+| CERN-OHL-P-2.0 | 28 | 9 | 12 &#9650; |
+| GPL-3.0-only | 25 | 10 | 13 &#9650; |
+| CERN-OHL-W-2.0 | 19 | 11 | 15 &#9650; |
+| GPL | 15 | 12 | 8 &#9660; |
+| CERN-OHL-1.2 | 14 | 13 | 18 &#9650; |
+| CC0-1.0 | 11 | 14 | 16 &#9650; |
+| Apache | 10 | 15 | 14 &#9660; |
+| TAPR | 9 | 16 | 6 &#9660; |
+| CC BY | 9 | 17 | 17 |
+| CERN | 5 | 18 | 4 &#9660; |
+| LGPL | 2 | 19 | 21 &#9650; |
+| Mozilla | 2 | 20 |  |
+| CC 0 | 1 | 21 | 19 &#9660; |
+
+| License | Total | Rank | Previous Rank | 
+|------:|:-----:|:----:|:-----:|
+| MIT | 85 | 1 | 3 &#9650; |
+| CC-BY-SA-4.0 | 83 | 2 | 1 &#9660; |
+| GPL-3.0-or-later | 74 | 3 | 4 &#9650; |
+| CERN-OHL-S-2.0 | 70 | 4 | 5 &#9650; |
+
+| License | Total | Rank | Previous Rank | 
+ |:------:|:-----:|:----:|:-----:|
+| MIT | 85 | 1 | 3 &#9650; |
+| CC-BY-SA-4.0 | 83 | 2 | 1 &#9660; |
+| GPL-3.0-or-later | 74 | 3 | 4 &#9650; |
+| CERN-OHL-S-2.0 | 70 | 4 | 5 &#9650; |
+| Other | 68 | 5 | 2 &#9660; |
+| CERN-OHL-P-2.0 | 50 | 6 | 9 &#9650; |
+| CC BY-SA | 48 | 7 | 6 &#9660; |
+| CC-BY-4.0 | 40 | 8 | 8 |
+| No software | 33 | 9 | 7 &#9660; |
+| CERN-OHL-W-2.0 | 25 | 10 | 11 &#9650; |
+| GPL-3.0-only | 24 | 11 | 10 &#9660; |
+| GPL | 18 | 12 | 12 |
+| Apache | 7 | 13 | 15 &#9650; |
+| CERN | 4 | 14 | 18 &#9650; |
+| CC BY | 3 | 15 | 17 &#9650; |
+| LGPL | 3 | 16 | 19 &#9650; |
+| CC 0 | 3 | 17 | 21 &#9650; |
+| CC0-1.0 | 3 | 18 | 14 &#9660; |
+| TAPR | 2 | 19 | 16 &#9660; |
+| CERN-OHL-1.2 | 1 | 20 | 13 &#9660; |
+| Solderpad | 1 | 21 |  |
+
 |License|Total|Rank|Previous Rank| 
- |------|:-----:|:----:|:-----:|
+|------|:-----:|:----:|:-----:|
 |CC-BY-SA-4.0|237|1|7 &#9650;|
 |Other|108|2|3 &#9650;|
 |MIT|103|3|2 &#9660;|
