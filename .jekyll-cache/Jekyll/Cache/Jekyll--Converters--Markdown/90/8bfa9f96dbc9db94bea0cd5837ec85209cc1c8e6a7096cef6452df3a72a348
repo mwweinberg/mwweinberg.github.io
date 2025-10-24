@@ -1,0 +1,46 @@
+I"�<p>Earlier this month, Arduino <a href="https://hackaday.com/2025/10/07/qualcomm-introduces-the-arduino-uno-q-linux-capable-sbc/">announced a new Arduino Uno Q</a> board as part of its acquisition by Qualcomm.  Is this new board open source?  It is kind of hard to say, which is exactly why the <a href="https://certification.oshwa.org/">OSHWA Open Source Hardware Certification</a> exists.</p>
+
+<h2 id="what-do-we-know">What Do We Know?</h2>
+
+<p>Arduino is <a href="https://www.arduino.cc/product-uno-q">marketing the new Q as “open source”</a>:</p>
+
+<p><img src="/images/arduino-q-os.png" alt="Is UNO Q open source? Yes, UNO Q schematics and gerbers are available under the CC-BY-S 4.0 license" /></p>
+
+<p>And you can <a href="https://docs.arduino.cc/hardware/uno-q/">download manufacturing files for the board</a>, which are licensed under a CC BY-SA 4.0 license.</p>
+
+<p>However, unlike prior Arduino boards (such as the <a href="https://docs.arduino.cc/hardware/uno-rev3/">Uno</a>), Arduino has not released editable design files for the Q. That means that, while some Q files are available and openly licensed, you cannot use those files to modify the board.</p>
+
+<p>Why might this be relevant? The community <a href="https://oshwa.org/resources/open-source-hardware-definition/">Open Hardware Definition</a> maintained by OSHWA requires:</p>
+
+<blockquote>
+  <p>The documentation must include design files in the preferred format for making changes, for example the native file format of a CAD program. Deliberately obfuscated design files are not allowed. Intermediate forms analogous to compiled computer code — such as printer-ready copper artwork from a CAD program — are not allowed as substitutes.</p>
+</blockquote>
+
+<p>I don’t know if Arduino intended to deliberately obfuscate the design files that it released, but the publicly available Q files are basically the “[i]ntermediate forms” called out in that definition.  Whatever the intention, Arduino’s release clearly fails the requirements of the community definition.</p>
+
+<p>Arduino clearly has a definition of “open source” that differs from the OSHWA definition. That might be confusing to some people. What can be done about that?</p>
+
+<h2 id="enter-the-oshwa-certification">Enter the OSHWA Certification</h2>
+
+<p>This is exactly the type of situation that <a href="https://michaelweinberg.org/post/129796766675/what-oshwa-is-and-is-not-trying-to-do-with-the">motivated OSHWA to create the certification program in the first place</a>.  No one owns the term “open source,” so (at least legally speaking) it can basically be used on anything to mean anything.  Sometimes it is used in different ways because people have a legitimate disagreement about what it should mean. Other times it is used in different ways because people are trying to open wash a product in bad faith. Regardless of the reason, it can be confusing.</p>
+
+<p>Fortunately, while no one owns the term open source, OSHWA does own the <a href="https://certification.oshwa.org/mark-usage.html">certification logo</a>, control UIDs, and control the <a href="https://certification.oshwa.org/list.html">directory</a>.  Although anyone can say something is “open source,” only things that meet the community definition of open source can be certified.</p>
+
+<p>Is someone making a claim to open source that feels questionable? If the hardware is certified, you know that their definition of “open source” meets the community definition.  If it isn’t certified, it might be worth doing some additional digging.</p>
+
+<p><strong>**</strong>QUALCOMM CHIPS<strong>**</strong></p>
+
+<p>Also, different because they didn’t release any info on the chips
+totally cool with the uno becasue they were sourcing them from someone else
+but in this case, QC also owns the chips, so they should release those too</p>
+
+<h2 id="sometimes-open-source-just-isnt">Sometimes Open Source Just Isn’t</h2>
+
+<p>Of course, sometimes it is very easy to determine if a claim of open source is bogus.  Take, for example this question and response in the Q’s FAQs:</p>
+
+<p><img src="/images/arduino-lab-os.png" alt="Is UNO Q open source? Yes, UNO Q schematics and gerbers are available under the CC-BY-S 4.0 license" /></p>
+
+<p>If the question is “Is Arduino App Lab open source?,” and the response is “we are working to publish corresponding source code repositories,” then the actual answer to the question is “No.”  Or, at a minimum, “not yet”.  “Someday we hope to make this open source” is not the same as “open source”.  Which is fine!  Just, you know, describe the current situation accurately.</p>
+
+<p><em>Feature image: <a href="https://www.si.edu/object/shop-scene:chndm_1921-6-201-109">Shop Scene</a> from the Smithsonian Open Access collection</em></p>
+:ET
