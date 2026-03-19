@@ -11,7 +11,7 @@ image:
 
 ---
 
-This post was originally going to be a legal analysis of the [Open Community License](https://github.com/OpenCommunityLicence/OpenCommunityLicence) [released](https://blog.prusa3d.com/core-one-cad-files-release-under-the-new-open-community-license-ocl_127290/) by the 3D printer company Prusa Labs right before Christmas. That analysis may still come. 
+This post was originally going to be a legal analysis of the [Open Community License](https://github.com/OpenCommunityLicence/OpenCommunityLicence) [released](https://blog.prusa3d.com/core-one-cad-files-release-under-the-new-open-community-license-ocl_127290/) by the 3D printer company Prusa Labs right before Christmas. That analysis may still come (*update 3/19/26*: it does not need to come.  Kyle E. Mitchell did his [trademark Line by Line analysis of the license](https://writing.kemitchell.com/2026/03/16/Open-Community-License-1) so check it out). 
 
 However, after reviewing it, the legal specifics of the license are less important than the way it represents the relationship between open hardware and IP protections in general. The entire presentation suggests that Prusa has a legal ability to control uses it has no ability to control.  In addition to being an “open” license that does not meet any common definition of open, the Open Community License actually advances the cause of a more maximalist IP worldview.   
 
