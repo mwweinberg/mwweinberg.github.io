@@ -61,7 +61,7 @@ Is disclosing everything you used to train your model just a roadmap for lawsuit
 
 If it is fair use to train AI models on unlicensed data, listing the training data won’t be a roadmap for lawsuits because creators don’t have a copyright claim to bring against trainers.  
 
-Also, [current experience suggests that lawsuits aren't waiting for this particular roadmap anyway]((https://knowingmachines.org/knowing-legal-machines/legal-explainer)).  
+Also, [current experience suggests that lawsuits aren't waiting for this particular roadmap anyway](https://knowingmachines.org/knowing-legal-machines/legal-explainer).  
 
 That means that the roadmap question may be best answered by examining the underlying fair use question, not by weighing the value of attribution.  And the fair use fate of AI training is probably much more relevant to it than the attribution compliance question.  So I’m going to call this concern both worth flagging and out of scope of this post.
 
